@@ -40,25 +40,17 @@ class Board
 
   def set_rows(row, rownum, index)
     if rownum != board.size - 1
-      set_tile(row, index)
+      set_tile(row, index, '_', '|')
     else
-      set_tile_final_row(row, index)
+      set_tile(row, index, ' ', '|')
     end
   end
 
-  def set_tile(row, index)
+  def set_tile(row, index, even_char, odd_char)
     if index.even?
-      row[index] = Tile.new('_')
+      row[index] = Tile.new(even_char)
     else
-      row[index] = Tile.new('|')
-    end
-  end
-
-  def set_tile_final_row(row, index)
-    if index.even?
-      row[index] = Tile.new(' ')
-    else
-      row[index] = Tile.new('|')
+      row[index] = Tile.new(odd_char)
     end
   end
 
