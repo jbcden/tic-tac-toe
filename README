@@ -1,0 +1,26 @@
+Boards:
+(3x3) width = 5 chars, height = 3
+_|_|_
+_|_|_
+ | |
+
+(4x4) width = 7 chars, height = 4
+_|_|_|_
+_|_|_|_
+_|_|_|_
+ | | |
+
+(5x5) width = 9 chars, height = 5
+_|_|_|_|_
+_|_|_|_|_
+_|_|_|_|_
+_|_|_|_|_
+ | | | |
+
+width = n + (n-1)
+height = n
+
+for even columns we will insert a '_'.
+for odd columns we will insert a '|'
+
+Look at magic squares
