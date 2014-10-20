@@ -12,11 +12,7 @@ class Board
   end
 
   def display
-    str = ""
-    board.each do |row|
-      str << print_row(row)
-    end
-    str
+    DisplayBoard.call(board)
   end
 
   private
@@ -52,14 +48,5 @@ class Board
     else
       row[index] = Tile.new(odd_char)
     end
-  end
-
-  def print_row(row)
-    str = ""
-    row.each do |column|
-      str << column.symbol
-    end
-    str << "\n"
-    str
   end
 end

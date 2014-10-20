@@ -32,15 +32,4 @@ class BoardTest < MiniTest::Test
     assert_equal ' ', actual.board[5][2].symbol
     assert_equal ' ', actual.board[5][4].symbol
   end
-
-  def test_board_display
-    actual = Board.new(3,3).display
-    result = <<'BOARD'
-_|_|_
-_|_|_
- | | 
-BOARD
-
-    assert_equal result, actual
-  end
 end
