@@ -22,17 +22,17 @@ class MagicSquare
 
     row = n-1
     col = n/2
-    board.board[row][col].mval = 1
+    board[row][col].mval = 1
 
     while count <= n*n
-      if (board.board[(row + 1) % n][(col + 1) % n].mval == 0)
+      if (board[(row + 1) % n][(col + 1) % n].mval == 0)
         row = (row + 1) % n;
         col = (col + 1) % n;
       else
         row = (row - 1 + n) % n;
       end
 
-      board.board[row][col].mval = count;
+      board[row][col].mval = count;
       count += 1
     end
   end
