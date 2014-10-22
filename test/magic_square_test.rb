@@ -10,7 +10,7 @@ class MagicSqaureTest < MiniTest::Test
 
   def sum_row(board)
     count = 0
-    board.board.first.each do |element|
+    board.first.each do |element|
       count += element.mval
     end
     count
@@ -19,7 +19,7 @@ class MagicSqaureTest < MiniTest::Test
     count = 0
     row = 0
     while row < board.height
-      count += board.board[row][2].mval # this will only work for boards 3x3 and up
+      count += board[row][2].mval # this will only work for boards 3x3 and up
       row += 1
     end
     count
@@ -30,7 +30,7 @@ class MagicSqaureTest < MiniTest::Test
     col = 0
 
     while row < board.height
-      count += board.board[row][col].mval
+      count += board[row][col].mval
 
       row += 1
       col += 1

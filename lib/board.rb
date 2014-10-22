@@ -1,6 +1,7 @@
 require 'tile'
 
 class Board
+  extend Forwardable
   attr_reader :width, :height, :board
   def initialize(width, height)
     @width = width
@@ -15,6 +16,7 @@ class Board
     DisplayBoard.call(board)
   end
 
+  def_delegators :@board, :[], :[]=, :each, :first
   private
   def board_width
     width + (width-1)
