@@ -23,4 +23,17 @@ height = n
 for even columns we will insert a '_'.
 for odd columns we will insert a '|'
 
-Look at magic squares
+When choosing a postion on the board to insert our mark we want an interface similar to:
+
+Please choose a position (player x):
+a1
+Please choose a position (player o):
+b3
+
+Mapping coordinates to a board:
+(3x3)
+  0 1 2
+  1 2 3
+a _|_|_
+b _|_|_
+c  | |

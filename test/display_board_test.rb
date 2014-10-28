@@ -6,9 +6,10 @@ class DisplayBoardTest < MiniTest::Test
   def test_board_display
     actual = Board.new(3,3).display
     result = <<'BOARD'
-_|_|_
-_|_|_
- | | 
+  1 2 3 
+a _|_|_
+b _|_|_
+c  | | 
 BOARD
 
     assert_equal result, actual

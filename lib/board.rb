@@ -16,7 +16,7 @@ class Board
     DisplayBoard.call(board)
   end
 
-  def_delegators :@board, :[], :[]=, :each, :first
+  def_delegators :@board, :[], :[]=, :each, :first, :size
   private
   def board_width
     width + (width-1)
