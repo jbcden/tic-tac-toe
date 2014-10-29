@@ -32,8 +32,26 @@ b3
 
 Mapping coordinates to a board:
 (3x3)
+
   0 1 2
   1 2 3
 a _|_|_
 b _|_|_
 c  | |
+
+So... odd indexes must have 1 subtracted from their value and even numbers can be left as is.
+
+NOTES:
+No longer need magic squares -- now attempting minimax
+
+The minimum number of moves to win is 5.
+
+must create functions to check for wins in rows, columns and diagonals
+
+function to get blank_tiles
+
+for each node, create a dup of the board for each possible choice of next move:
+  continue until each blank_tile has a score.
+  Choose tile with highest score.
+
+
