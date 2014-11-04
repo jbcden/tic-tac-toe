@@ -35,13 +35,13 @@ class Board
 
   def set_rows(row, rownum, index)
     if rownum != board.size - 1
-      set_tile(row, index, '_')
+      set_tile(row, rownum, index, '_')
     else
-      set_tile(row, index, ' ')
+      set_tile(row, rownum, index, ' ')
     end
   end
 
-  def set_tile(row, index, tile_char)
-    row[index] = Tile.new(tile_char)
+  def set_tile(row, rownum, index, tile_char)
+    row[index] = Tile.new(tile_char, rownum, index)
   end
 end

@@ -8,6 +8,18 @@ class WinChecker
   end
 
     private
+    def self.winner(xcount, ocount, board, method)
+      win_num = board.public_method(method.to_sym).call
+
+      if xcount == win_num
+       "x"
+      elsif ocount == win_num
+        "o"
+      else
+        false
+      end
+    end
+
     def self.right_diagonal(board)
       xcount = 0
       ocount = 0
@@ -18,7 +30,7 @@ class WinChecker
         ocount += 1 if row[col_num].symbol == "o"
         col_num -= 1
       end
-      return xcount == board.height || ocount == board.height
+      return winner(xcount, ocount, board, "height")
     end
 
     def self.left_diagonal(board)
@@ -31,7 +43,7 @@ class WinChecker
         ocount += 1 if row[col_num].symbol == "o"
         col_num += 1
       end
-      return xcount == board.height || ocount == board.height
+      return winner(xcount, ocount, board, "height")
     end
 
     def self.diagonal_win(board)
@@ -49,8 +61,8 @@ class WinChecker
           xcount += 1 if row[col_num].symbol == "x"
           ocount += 1 if row[col_num].symbol == "o"
         end
-        if xcount == board.height || ocount == board.height
-          return true
+        if w = winner(xcount, ocount, board, "height")
+          return w
         end
         xcount = 0
         ocount = 0
@@ -67,8 +79,8 @@ class WinChecker
           xcount += 1 if col.symbol == "x"
           ocount += 1 if col.symbol == "o"
         end
-        if xcount == board.width || ocount == board.width
-          return true
+        if w = winner(xcount, ocount, board, "height")
+          return w
         end
         xcount = 0
         ocount = 0

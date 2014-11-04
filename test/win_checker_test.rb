@@ -22,7 +22,7 @@ class WinCheckerTest < MiniTest::Test
     @board[1][1].mark("x")
     @board[1][2].mark("x")
 
-    assert_equal true, WinChecker.end_state?(@board, 5)
+    assert_equal "x", WinChecker.end_state?(@board, 5)
   end
 
   def test_will_end_when_a_column_win_condition_is_met
@@ -30,7 +30,7 @@ class WinCheckerTest < MiniTest::Test
     @board[1][2].mark("x")
     @board[2][2].mark("x")
 
-    assert_equal true, WinChecker.end_state?(@board, 5)
+    assert_equal "x", WinChecker.end_state?(@board, 5)
   end
 
   def test_will_end_when_a_left_diagonal_win_condition_is_met
@@ -38,7 +38,7 @@ class WinCheckerTest < MiniTest::Test
     @board[1][1].mark("x")
     @board[2][2].mark("x")
 
-    assert_equal true, WinChecker.end_state?(@board, 5)
+    assert_equal "x", WinChecker.end_state?(@board, 5)
   end
 
   def test_will_end_when_a_right_diagonal_win_condition_is_met
@@ -46,6 +46,6 @@ class WinCheckerTest < MiniTest::Test
     @board[1][1].mark("x")
     @board[2][0].mark("x")
 
-    assert_equal true, WinChecker.end_state?(@board, 5)
+    assert_equal "x", WinChecker.end_state?(@board, 5)
   end
 end

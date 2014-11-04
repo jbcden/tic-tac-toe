@@ -1,14 +1,16 @@
 class Tile
   class InvalidActionError < StandardError
-    def initialize(msg="You cannot modify this tile.")
+    def initialize(msg="This tile has already been marked")
       super
     end
   end
-  attr_reader :symbol
+  attr_reader :symbol, :xval, :yval
   attr_writer :mval, :marked, :symbol
 
-  def initialize(symbol)
+  def initialize(symbol, xval, yval)
     @symbol = symbol
+    @xval = xval
+    @yval = yval
   end
 
   def mval

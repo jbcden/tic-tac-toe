@@ -12,7 +12,15 @@ class BoardMapper
     "y" => 24, "z" => 25
   }
 
-  def self.map(board, location)
+  def self.map_coordinate(x, y)
+    str = ""
+    str << ROW_MAPPER.key(x)
+    str << (y-1).to_s
+
+    str
+  end
+
+  def self.map_string(board, location)
     row = extract_row(location)
     col = get_col(extract_column(location))
 

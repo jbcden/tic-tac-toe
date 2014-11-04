@@ -7,22 +7,30 @@ class BoardMapperTest < MiniTest::Test
     @board = Board.new(3,3)
   end
 
-  def test_coordinates_are_mapped_correctly
+  def test_coordinate_strings_are_mapped_correctly
     expected = @board[0][0]
-    actual = BoardMapper.map(@board, "a1")
+    actual = BoardMapper.map_string(@board, "a1")
 
     assert_equal expected, actual
   end
 
   def test_it_throws_an_error_for_invalid_column
     assert_raises(BoardMapper::InvalidCoordinateError) {
-      BoardMapper.map(@board, "a4")
+      BoardMapper.map_string(@board, "a4")
     }
   end
 
   def test_it_throws_an_error_for_invalid_row
     assert_raises(BoardMapper::InvalidCoordinateError) {
-      BoardMapper.map(@board, "d3")
+      BoardMapper.map_string(@board, "d3")
     }
+  end
+
+  def test_coordinates_can_be_mapped_into_strings
+    actual = BoardMapper.map_coordinate(2,4)
+    actual2 = BoardMapper.map_coordinate(6, 9)
+
+    assert_equal "c3", actual
+    assert_equal "g8", actual2
   end
 end
