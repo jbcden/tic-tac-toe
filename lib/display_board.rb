@@ -24,11 +24,8 @@ class DisplayBoard
     count = row_size
 
     row_size.times do
-      if count.odd?
-        str << col.to_s << " "
-        col += 1
-      end
-      count += 1
+      str << col.to_s << " "
+      col += 1
     end
     str << "\n"
     str
@@ -37,8 +34,9 @@ class DisplayBoard
   def self.print_row(row, row_num)
     str = ""
     str << ROW_NAMES[row_num] << " "
-    row.each do |column|
+    row.each_with_index do |column, index|
       str << column.symbol
+      str << "|" unless index == row.size-1
     end
     str << "\n"
     str

@@ -11,12 +11,12 @@ class WinChecker
     def self.right_diagonal(board)
       xcount = 0
       ocount = 0
-      col_num = board.width + (board.width - 2)
+      col_num = board.width - 1
 
       board.each do |row|
         xcount += 1 if row[col_num].symbol == "x"
         ocount += 1 if row[col_num].symbol == "o"
-        col_num -= 2
+        col_num -= 1
       end
       return xcount == board.height || ocount == board.height
     end
@@ -29,7 +29,7 @@ class WinChecker
       board.each do |row|
         xcount += 1 if row[col_num].symbol == "x"
         ocount += 1 if row[col_num].symbol == "o"
-        col_num += 2
+        col_num += 1
       end
       return xcount == board.height || ocount == board.height
     end
@@ -54,7 +54,7 @@ class WinChecker
         end
         xcount = 0
         ocount = 0
-        col_num += 2
+        col_num += 1
       end
       false
     end

@@ -18,13 +18,13 @@ class Board
 
   def_delegators :@board, :[], :[]=, :each, :first, :size
   private
-  def board_width
-    width + (width-1)
-  end
+  # def board_width
+  #   width + (width-1)
+  # end
 
   def init_board_array
     board.each_with_index do |row, index|
-      board[index] = Array.new(board_width)
+      board[index] = Array.new(width)
     end
   end
 
@@ -45,10 +45,11 @@ class Board
   end
 
   def set_tile(row, index, even_char, odd_char)
-    if index.even?
-      row[index] = Tile.new(even_char)
-    else
-      row[index] = Tile.new(odd_char)
-    end
+    row[index] = Tile.new(even_char)
+    # if index.even?
+    #   row[index] = Tile.new(even_char)
+    # else
+    #   row[index] = Tile.new(odd_char)
+    # end
   end
 end
