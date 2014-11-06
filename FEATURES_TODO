@@ -7,5 +7,6 @@ Features:
       - win conditions etc will probably become the responsibility of this class.
 
   ComputerPlayer
-    - will need to take in a game_state for that it can check if a win condition has been met.
+    - will need to take in a game_state so that it can check if a win condition has been met.
     - need to refactor existing mini_max function to be less obfuscated -- refactor into smaller functions etc
+    - need to make more methods for making a move and make better/more accurate names for such methods.
