@@ -1,5 +1,6 @@
 require_relative './test_helper'
 require 'computer'
+require 'board'
 
 class ComputerTest < MiniTest::Test
   def setup
@@ -25,8 +26,7 @@ class ComputerTest < MiniTest::Test
     assert_includes available_moves, @board[2][2]
   end
 
-  def test_must_score_each_available_tile
-    skip
+  def test_select_winning_move
     @board[0][0].mark("o")
     @board[2][1].mark("o")
     @board[2][2].mark("o")
@@ -35,11 +35,24 @@ class ComputerTest < MiniTest::Test
     @board[1][0].mark("x")
     @board[2][0].mark("x")
 
-    scored_board = Computer.score(@board)
+    move = Computer.make_move(@board, 7, "x")
 
-    assert_equal -1, scored_board[:a2]
-    assert_equal -1, scored_board[:b3]
+    assert_equal 1, move.xval
+    assert_equal 1, move.yval
+  end
 
-    assert_equal 1, scored_board[:a2]
+  def test_select_winning_move_depth
+    skip
+    @board[2][0].mark("x")
+    @board[2][1].mark("x")
+
+    @board[0][1].mark("o")
+    @board[1][2].mark("o")
+    @board[2][2].mark("o")
+
+    move = Computer.make_move(@board, 7)
+
+    assert_equal 0, move.xval
+    assert_equal 2, move.yval
   end
 end

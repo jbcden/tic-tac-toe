@@ -27,8 +27,8 @@ class BoardMapperTest < MiniTest::Test
   end
 
   def test_coordinates_can_be_mapped_into_strings
-    actual = BoardMapper.map_coordinate(2,4)
-    actual2 = BoardMapper.map_coordinate(6, 9)
+    actual = BoardMapper.map_coordinate(2,2)
+    actual2 = BoardMapper.map_coordinate(6, 7)
 
     assert_equal "c3", actual
     assert_equal "g8", actual2

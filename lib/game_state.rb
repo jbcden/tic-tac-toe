@@ -1,6 +1,14 @@
-class WinChecker
-  def self.end_state?(board, num_turns)
-    if num_turns >= min_turns
+class GameState
+  attr_reader :board, :turn_num, :current_player, :opponent
+  def initialize(board, turn_num, current_player)
+    @board = board
+    @turn_num = turn_num
+    @player = current_player
+    @opponent = opponent
+  end
+
+  def end_state?
+    if turn_num >= min_turns
       row_win(board) || column_win(board) || diagonal_win(board)
     else
       false
@@ -8,7 +16,7 @@ class WinChecker
   end
 
     private
-    def self.winner(xcount, ocount, board, method)
+    def winner(xcount, ocount, board, method)
       win_num = board.public_method(method.to_sym).call
 
       if xcount == win_num
@@ -20,7 +28,7 @@ class WinChecker
       end
     end
 
-    def self.right_diagonal(board)
+    def right_diagonal(board)
       xcount = 0
       ocount = 0
       col_num = board.width - 1
@@ -33,7 +41,7 @@ class WinChecker
       return winner(xcount, ocount, board, "height")
     end
 
-    def self.left_diagonal(board)
+    def left_diagonal(board)
       xcount = 0
       ocount = 0
       col_num = 0
@@ -46,12 +54,12 @@ class WinChecker
       return winner(xcount, ocount, board, "height")
     end
 
-    def self.diagonal_win(board)
+    def diagonal_win(board)
       left_diagonal(board) ||
       right_diagonal(board)
     end
 
-    def self.column_win(board)
+    def column_win(board)
       xcount = 0
       ocount = 0
       col_num = 0
@@ -71,7 +79,7 @@ class WinChecker
       false
     end
 
-    def self.row_win(board)
+    def row_win(board)
       xcount = 0
       ocount = 0
       board.each do |row|
@@ -88,7 +96,7 @@ class WinChecker
       false
     end
 
-    def self.min_turns
+    def min_turns
       5
     end
 end

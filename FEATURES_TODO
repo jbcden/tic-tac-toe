@@ -1,0 +1,11 @@
+Features:
+  GamePlay script
+    - begins game -- will initialize the board and computer player(will set each player's character, 'x' or 'o')
+    - will have an infinite loop that will check for game end condition.
+
+  GameState object
+      - win conditions etc will probably become the responsibility of this class.
+
+  ComputerPlayer
+    - will need to take in a game_state for that it can check if a win condition has been met.
+    - need to refactor existing mini_max function to be less obfuscated -- refactor into smaller functions etc

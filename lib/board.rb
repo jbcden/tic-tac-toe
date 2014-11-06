@@ -1,8 +1,10 @@
 require 'tile'
+require 'forwardable'
 
 class Board
   extend Forwardable
   attr_reader :width, :height, :board
+  attr_writer :board
   def initialize(width, height)
     @width = width
     @height = height

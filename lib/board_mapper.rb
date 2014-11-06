@@ -15,7 +15,7 @@ class BoardMapper
   def self.map_coordinate(x, y)
     str = ""
     str << ROW_MAPPER.key(x)
-    str << (y-1).to_s
+    str << (y+1).to_s
 
     str
   end
