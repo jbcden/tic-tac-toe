@@ -1,4 +1,4 @@
-require 'tile'
+require 'tic_tac_toe/tile'
 require 'forwardable'
 
 class Board

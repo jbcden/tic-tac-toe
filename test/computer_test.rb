@@ -1,6 +1,7 @@
 require_relative './test_helper'
 require 'computer'
 require 'board'
+require 'game_state'
 
 class ComputerTest < MiniTest::Test
   def setup
