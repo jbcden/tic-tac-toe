@@ -42,7 +42,6 @@ class ComputerTest < MiniTest::Test
   end
 
   def test_select_winning_move_depth
-    skip
     @board[2][0].mark("x")
     @board[2][1].mark("x")
 
@@ -50,7 +49,7 @@ class ComputerTest < MiniTest::Test
     @board[1][2].mark("o")
     @board[2][2].mark("o")
 
-    move = Computer.make_move(@board, 7)
+    move = Computer.make_move(@board, 7, "x")
 
     assert_equal 0, move.xval
     assert_equal 2, move.yval

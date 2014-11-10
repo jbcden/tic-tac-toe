@@ -3,19 +3,20 @@ class Computer
   def self.make_move(board, turn_num, symbol)
     @symbol = symbol
     game = initial_game_state(board, turn_num, symbol)
-    mini_max(game, symbol)
+    mini_max(game, symbol, 0)
     @move
   end
 
-  def self.mini_max(game, current_player)
-    return score(game) if game.end_state?
+  def self.mini_max(game, current_player, depth)
+    return evaluate(game, depth) if game.end_state?
     scores = []
     moves = []
+    depth += 1
 
     available_moves(game.board).each do |tile|
       new_state = get_new_state(tile, game, current_player)
 
-      scores << mini_max(new_state, next_player(current_player))
+      scores << mini_max(new_state, next_player(current_player), depth)
       moves << tile
     end
     return choose_move(current_player, scores, moves)
@@ -42,11 +43,11 @@ class Computer
     end
   end
 
-  def self.score(game)
+  def self.evaluate(game, depth)
     if game.end_state? == symbol
-      return 1
+      return 1 - depth
     elsif game.end_state? == opponent
-      return -1
+      return depth - 1
     else
       return 0
     end
