@@ -27,12 +27,27 @@ def print_board
   puts DisplayBoard.call($board)
 end
 
+def clear_board
+  clear_screen
+  print_board
+end
+
 clear_screen
 
-print "Welcome to my Tic Tac Toe game! Which player would you like to be? (\"x\" or \"o\"): "
+print "Welcome to my Tic Tac Toe game!"
 
-human_symbol = gets.chomp
-player = Player.new(human_symbol)
+char_chosen = true
+while char_chosen
+  puts "Which player would you like to be? (\"x\" or \"o\"): "
+  human_symbol = gets.chomp
+  begin
+    player = Player.new(human_symbol)
+    char_chosen = false
+  rescue Player::InvalidCharacterError => e
+    puts e.message
+    char_chosen = true
+  end
+end
 computer = Computer.new(choose_computer(human_symbol))
 
 if human_symbol == "x"
@@ -47,15 +62,24 @@ game = GameState.new($board, $turn_num, $players.first)
 
 
 while !game.end_state?
-  clear_screen
-  print_board
+  clear_board
 
   current_player = $players[$turn_num % 2]
 
   if current_player.human?
     puts
-    move = gets.chomp
-    current_player.make_move($board, move)
+    moves=true
+    while moves
+      begin
+        clear_board
+        move = gets.chomp
+        current_player.make_move($board, move)
+        moves = false
+      rescue BoardMapper::InvalidCoordinateError => e
+        puts e.message
+        moves = true
+      end
+    end
   else
     move = current_player.calculate_best_move($board, game)
     computer.make_move($board, move)
@@ -64,7 +88,6 @@ while !game.end_state?
   game = GameState.new($board, $turn_num, $players[$turn_num % 2])
 end
 
-clear_screen
-print_board
+clear_board
 
 puts "The winner is: #{game.end_state?}"
