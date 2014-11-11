@@ -5,16 +5,12 @@ class Tile
     end
   end
   attr_reader :symbol, :xval, :yval
-  attr_writer :mval, :marked, :symbol
+  attr_writer :marked, :symbol
 
   def initialize(symbol, xval, yval)
     @symbol = symbol
     @xval = xval
     @yval = yval
-  end
-
-  def mval
-    @mval ||= 0
   end
 
   def marked?
