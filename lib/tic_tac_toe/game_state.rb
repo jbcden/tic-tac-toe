@@ -9,20 +9,37 @@ class GameState
 
   def end_state?
     if turn_num >= min_turns
-      row_win(board) || column_win(board) || diagonal_win(board)
+      row_win(board) || column_win(board) || diagonal_win(board) || full_board(board)
     else
       false
     end
   end
 
     private
+    def full_board(board)
+      marked = []
+      board.each do |row|
+        row.each do |tile|
+          marked << tile if tile.marked?
+        end
+      end
+      if marked.size == (board.width*board.height)
+        "cat"
+      else
+        false
+      end
+    end
+
     def winner(xcount, ocount, board, method)
       win_num = board.public_method(method.to_sym).call
+      cat = (board.width*board.height)/2 + 1
 
       if xcount == win_num
        "x"
       elsif ocount == win_num
         "o"
+      elsif ocount == cat || xcount == cat
+        "cat"
       else
         false
       end

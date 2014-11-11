@@ -22,7 +22,7 @@ class BoardMapper
 
   def self.map_string(board, location)
     row = extract_row(location)
-    col = get_col(extract_column(location))
+    col = extract_column(location)
 
     if is_valid?(board, row, col)
       board[ROW_MAPPER[row]][col]
@@ -43,11 +43,7 @@ class BoardMapper
   end
 
   def self.get_col(col_num)
-    if col_num.odd?
-      return col_num - 1
-    else
-      return col_num
-    end
+    col_num - 1
   end
 
   def self.is_valid?(board, row, col)

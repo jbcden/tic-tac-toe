@@ -1,13 +1,26 @@
 class Computer
+  attr_reader :symbol
 
-  def self.make_move(board, turn_num, symbol)
+  def initialize(symbol)
     @symbol = symbol
-    game = initial_game_state(board, turn_num, symbol)
-    mini_max(game, symbol, 0)
-    @move
   end
 
-  def self.mini_max(game, current_player, depth)
+  def calculate_best_move(board, game)
+    unless new_board?(game.board)
+      mini_max(game, symbol, 0)
+      BoardMapper.map_coordinate(@move.xval, @move.yval)
+    else
+      tile = corners(board).sample
+      BoardMapper.map_coordinate(tile.xval, tile.yval)
+    end
+  end
+
+  def make_move(board, coordinate)
+    tile = BoardMapper.map_string(board, coordinate)
+    tile.mark(symbol)
+  end
+
+  def mini_max(game, current_player, depth)
     return evaluate(game, depth) if game.end_state?
     scores = []
     moves = []
@@ -22,16 +35,34 @@ class Computer
     return choose_move(current_player, scores, moves)
   end
 
-  def self.available_moves(board)
+  def available_moves(board)
     unmarked_tiles(board)
   end
 
+  def human?
+    false
+  end
+
   private
-  def self.initial_game_state(board, turn_num, symbol)
+  def new_board?(board)
+    unmarked_tiles(board).size == (board.width*board.height)
+  end
+
+  def corners(board)
+    corners = []
+
+    corners << board.first[0]
+    corners << board.first.last
+
+    corners << board.last.first
+    corners << board.last.last
+  end
+
+  def initial_game_state(board, turn_num, symbol)
     GameState.new(board, turn_num, symbol)
   end
 
-  def self.choose_move(current_player, scores, moves)
+  def choose_move(current_player, scores, moves)
     if current_player == symbol
       max_index = scores.each_with_index.max[1]
       @move = moves[max_index]
@@ -43,21 +74,17 @@ class Computer
     end
   end
 
-  def self.evaluate(game, depth)
+  def evaluate(game, depth)
     if game.end_state? == symbol
-      return 1 - depth
+      return 10 - depth
     elsif game.end_state? == opponent
-      return depth - 1
+      return depth - 10
     else
       return 0
     end
   end
 
-  def self.symbol
-    @symbol
-  end
-
-  def self.get_new_state(tile, game, current_player)
+  def get_new_state(tile, game, current_player)
     # copy board class and deep copy the inner board array
     # Marshal is necessary b/c board array does not contain
     # Plain Old Ruby Objects
@@ -70,7 +97,7 @@ class Computer
     GameState.new(temp_board, game.turn_num+1, current_player)
   end
 
-  def self.next_player(current_player)
+  def next_player(current_player)
     if current_player == "x"
       "o"
     else
@@ -78,11 +105,11 @@ class Computer
     end
   end
 
-  def self.opponent
+  def opponent
     next_player(symbol)
   end
 
-  def self.unmarked_tiles(board)
+  def unmarked_tiles(board)
     unmarked = []
     board.each do |row|
       row.each do |tile|

@@ -1,4 +1,4 @@
-require 'tic_tac_toe/tile'
+require_relative 'tile'
 require 'forwardable'
 
 class Board
@@ -18,7 +18,7 @@ class Board
     DisplayBoard.call(board)
   end
 
-  def_delegators :@board, :[], :[]=, :each, :first, :size
+  def_delegators :@board, :[], :[]=, :each, :first, :size, :last
   private
 
   def init_board_array
