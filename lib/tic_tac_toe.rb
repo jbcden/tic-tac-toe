@@ -77,23 +77,7 @@ class TicTacToe
       current_player = @players[@turn_num % 2]
 
       if current_player.human?
-        puts
-        error = ""
-        while 1
-          begin
-            clear_board
-            print_message
-            puts error unless error.empty?
-
-            move = gets.chomp
-            current_player.make_move(@board, move)
-            break
-          rescue BoardMapper::InvalidCoordinateError => e
-            error = e.message
-          rescue Tile::InvalidActionError => e
-            error = e.message
-          end
-        end
+        human_move(current_player)
       else
         move = current_player.calculate_best_move(@board, @game)
         computer.make_move(@board, move)
@@ -108,6 +92,26 @@ class TicTacToe
   end
 
   private
+
+  def human_move(current_player)
+    puts
+    error = ""
+    while 1
+      begin
+        clear_board
+        print_message
+        puts error unless error.empty?
+
+        move = gets.chomp
+        current_player.make_move(@board, move)
+        break
+      rescue BoardMapper::InvalidCoordinateError => e
+        error = e.message
+      rescue Tile::InvalidActionError => e
+        error = e.message
+      end
+    end
+  end
 
   def choose_computer(human)
     if human == "x"
