@@ -21,6 +21,7 @@ class BoardMapper
   end
 
   def self.map_string(board, location)
+
     row = extract_row(location)
     col = extract_column(location)
 
@@ -33,13 +34,18 @@ class BoardMapper
 
   private
   def self.extract_column(location)
+    column = location.scan(/\d+\Z/).first
+    raise InvalidCoordinateError if column.nil?
     get_col(
-      Integer(location.scan(/\d+\Z/).first)
+      Integer(column)
     )
   end
 
   def self.extract_row(location)
-    location.scan(/\A[a-z]+/).first
+    row = location.scan(/\A[a-z]+/).first
+    raise InvalidCoordinateError if row.nil?
+    raise InvalidCoordinateError unless ROW_MAPPER.has_key?(row)
+    row
   end
 
   def self.get_col(col_num)
