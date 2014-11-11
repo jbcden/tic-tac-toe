@@ -5,4 +5,8 @@ Setup:
 The game itself can be run with `bin/game'.
 
 Notes:
-  This game uses the minimax algorithm for its unbeatable computer player. I learned about this algorithm from http://www.neverstopbuilding.com/minimax. I also drew test cases from this article as well as a few ways to simplify the minimax algorithm.
+  This game uses the minimax algorithm for its unbeatable computer player. I learned about this algorithm from http://www.neverstopbuilding.com/minimax. I also drew test cases based on examples from this article as well as a few ways to simplify the minimax algorithm.
+
+Things I would like to improve:
+I have not dealt with error handling much in the past and I feel that I am currently handling error cases in a somewhat inelegant way.
+The design of the tic_tac_toe.rb file also feels clumsy and bloated.

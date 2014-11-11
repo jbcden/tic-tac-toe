@@ -9,6 +9,10 @@ require_relative 'tic_tac_toe/tile'
 class TicTacToe
   attr_reader :board, :turn_num, :players, :computer, :player, :game
 
+  def self.start
+    new.play
+  end
+
   def initialize
     @board = Board.new(3,3)
     @turn_num = 0
@@ -102,6 +106,8 @@ class TicTacToe
 
     puts "The winner is: #{game.end_state?}"
   end
+
+  private
 
   def choose_computer(human)
     if human == "x"
