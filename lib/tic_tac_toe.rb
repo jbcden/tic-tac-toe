@@ -1,4 +1,3 @@
-#!/usr/bin/env ruby
 require_relative 'tic_tac_toe/board'
 require_relative 'tic_tac_toe/board_mapper'
 require_relative 'tic_tac_toe/computer'
@@ -16,6 +15,19 @@ class TicTacToe
     @players = []
   end
 
+  def play
+    trap('INT') do
+      puts 'exiting!'
+      exit!
+    end
+    print_intro
+    choose_human
+    set_players_order
+    initialize_game_state
+    game_loop
+  end
+
+
   def print_intro
     clear_screen
 
@@ -23,14 +35,17 @@ class TicTacToe
   end
 
   def choose_human
+    error = ""
     while 1
-      puts "Which player would you like to be? (\"x\" or \"o\"): "
       begin
+        clear_screen
+        puts "Which player would you like to be? (\"x\" or \"o\"): "
+        puts error unless error.empty?
         human_symbol = gets.chomp
         @player = Player.new(human_symbol)
         break
       rescue Player::InvalidCharacterError => e
-        puts e.message
+        error = e.message
         retry
       end
     end
@@ -88,14 +103,6 @@ class TicTacToe
     puts "The winner is: #{game.end_state?}"
   end
 
-  def play
-    print_intro
-    choose_human
-    set_players_order
-    initialize_game_state
-    game_loop
-  end
-
   def choose_computer(human)
     if human == "x"
       return "o"
@@ -120,6 +127,4 @@ class TicTacToe
   def print_message
     puts "Please choose a square to mark."
   end
-  t = TicTacToe.new
-  t.play
 end
