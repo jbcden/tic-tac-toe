@@ -1,57 +1,9 @@
-Boards:
-(3x3) width = 5 chars, height = 3
-_|_|_
-_|_|_
- | |
+An unbeatable game of tic-tac-toe!
 
-(4x4) width = 7 chars, height = 4
-_|_|_|_
-_|_|_|_
-_|_|_|_
- | | |
+Setup:
+  This can be played by cloning this repository and installing dependencies with `bundle install`. Tests can be run via the `rake test` command.
+  The game itself can be run with `bin/game'.
 
-(5x5) width = 9 chars, height = 5
-_|_|_|_|_
-_|_|_|_|_
-_|_|_|_|_
-_|_|_|_|_
- | | | |
-
-width = n + (n-1)
-height = n
-
-for even columns we will insert a '_'.
-for odd columns we will insert a '|'
-
-When choosing a postion on the board to insert our mark we want an interface similar to:
-
-Please choose a position (player x):
-a1
-Please choose a position (player o):
-b3
-
-Mapping coordinates to a board:
-(3x3)
-
-  0 1 2
-  1 2 3
-a _|_|_
-b _|_|_
-c  | |
-
-So... odd indexes must have 1 subtracted from their value and even numbers can be left as is.
-
-NOTES:
-No longer need magic squares -- now attempting minimax
-
-The minimum number of moves to win is 5.
-
-must create functions to check for wins in rows, columns and diagonals
-
-function to get blank_tiles
-
-for each node, create a dup of the board for each possible choice of next move:
-  continue until each blank_tile has a score.
-  Choose tile with highest score.
-
-
+Notes:
+  This game uses the minimax algorithm for its unbeatable computer player. I learned about this algorithm from http://www.neverstopbuilding.com/minimax. I also drew
+  test cases from this article as well as a few ways to simplify the minimax algorithm.

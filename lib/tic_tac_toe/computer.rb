@@ -29,6 +29,7 @@ class Computer
     available_moves(game.board).each do |tile|
       new_state = get_new_state(tile, game, current_player)
 
+      # I got this idea from the post mentioned in the README
       scores << mini_max(new_state, next_player(current_player), depth)
       moves << tile
     end
