@@ -44,30 +44,24 @@ class GameState
       end
     end
 
-    def right_diagonal(board)
+    def diagonal_iterator(board, col_num, iterator)
       xcount = 0
       ocount = 0
-      col_num = board.width - 1
 
       board.each do |row|
         xcount += 1 if row[col_num].symbol == "x"
         ocount += 1 if row[col_num].symbol == "o"
-        col_num -= 1
+        col_num += iterator
       end
-      return winner(xcount, ocount, board, "height")
+      winner(xcount, ocount, board, "height")
+    end
+
+    def right_diagonal(board)
+      diagonal_iterator(board, board.width - 1, -1)
     end
 
     def left_diagonal(board)
-      xcount = 0
-      ocount = 0
-      col_num = 0
-
-      board.each do |row|
-        xcount += 1 if row[col_num].symbol == "x"
-        ocount += 1 if row[col_num].symbol == "o"
-        col_num += 1
-      end
-      return winner(xcount, ocount, board, "height")
+      diagonal_iterator(board, 0, 1)
     end
 
     def diagonal_win(board)
@@ -103,7 +97,7 @@ class GameState
           xcount += 1 if col.symbol == "x"
           ocount += 1 if col.symbol == "o"
         end
-        if w = winner(xcount, ocount, board, "height")
+        if w = winner(xcount, ocount, board, "width")
           return w
         end
         xcount = 0
