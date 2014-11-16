@@ -1,8 +1,24 @@
-An unbeatable game of tic-tac-toe!
+# An unbeatable game of tic-tac-toe!
 
-Setup:
-  This can be played by cloning this repository and installing dependencies with `bundle install`. Tests can be run via the `rake test` command.
-The game itself can be run with `bin/game'.
+[![Code Climate][CC img]][Code Climate]
+
+[Code Climate]: https://codeclimate.com/github/jbcden/tic-tac-toe
+
+[CC img]: https://codeclimate.com/github/jbcden/tic-tac-toe.png
+
+## Setup:
+- This can be played by cloning this repository and installing dependencies with:
+  ```bash
+  bundle install 
+  ```
+- Tests can be run by running:
+```bash
+rake test
+```
+The game itself can be run with 
+```bash
+bin/game
+```
 
 Notes:
 This game uses the minimax algorithm for its unbeatable computer player. I learned about this algorithm from http://www.neverstopbuilding.com/minimax. I also drew test cases based on examples from this article as well as a few ways to simplify the minimax algorithm.
