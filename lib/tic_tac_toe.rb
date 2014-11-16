@@ -76,12 +76,8 @@ class TicTacToe
 
       current_player = @players[@turn_num % 2]
 
-      if current_player.human?
-        human_move(current_player)
-      else
-        move = current_player.calculate_best_move(@board, @game)
-        computer.make_move(@board, move)
-      end
+      take_turn(current_player)
+
       @turn_num += 1
       @game = GameState.new(@board, @turn_num, @players[@turn_num % 2])
     end
@@ -92,6 +88,15 @@ class TicTacToe
   end
 
   private
+
+  def take_turn(current_player)
+    if current_player.human?
+      human_move(current_player)
+    else
+      move = current_player.calculate_best_move(@board, @game)
+      computer.make_move(@board, move)
+    end
+  end
 
   def human_move(current_player)
     puts
