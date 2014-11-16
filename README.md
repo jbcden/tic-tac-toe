@@ -21,7 +21,9 @@ bin/game
 ```
 
 ## Notes:
-- This game uses the minimax algorithm for its unbeatable computer player. I learned about this algorithm from http://www.neverstopbuilding.com/minimax. I also drew test cases based on examples from this article as well as a few ways to simplify the minimax algorithm.
+- This game uses the minimax algorithm for its unbeatable computer player.
+  - I learned about this algorithm from http://www.neverstopbuilding.com/minimax.
+  - I also drew test cases based on examples from this article as well as a few ways to simplify the minimax algorithm.
 - On a draw the winner is "cat".
 - This is my first test-driven application so I am sure the tests could also be written better than they are now.
 - I am also still new to Object-Oriented Design so any feedback on my design would be greatly appreciated!
