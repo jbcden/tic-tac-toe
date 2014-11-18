@@ -20,6 +20,11 @@ The game itself can be run with
 bin/game
 ```
 
+## Gem:
+For easy use of this program I have released a gem called jbcden_ttt.
+
+For more information please go to https://github.com/jbcden/jbcden_ttt
+
 ## Notes:
 - This game uses the minimax algorithm for its unbeatable computer player.
   - I learned about this algorithm from http://www.neverstopbuilding.com/minimax.
