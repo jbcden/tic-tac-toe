@@ -18,6 +18,16 @@ class Board
     DisplayBoard.call(board)
   end
 
+  def dup
+    # copy board class and deep copy the inner board array
+    # Marshal is necessary b/c board array does not contain
+    # Plain Old Ruby Objects
+    super.tap do
+      temp_board = Marshal.load(Marshal.dump(board))
+      self.board = temp_board
+    end
+  end
+
   def_delegators :@board, :[], :[]=, :each, :first, :size, :last
   private
 

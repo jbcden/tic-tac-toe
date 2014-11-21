@@ -86,12 +86,7 @@ class Computer
   end
 
   def get_new_state(tile, game, current_player)
-    # copy board class and deep copy the inner board array
-    # Marshal is necessary b/c board array does not contain
-    # Plain Old Ruby Objects
     temp_board = game.board.dup
-    board_array = Marshal.load(Marshal.dump(game.board.board))
-    temp_board.board = board_array
 
     temp_board[tile.xval][tile.yval].mark(current_player)
 
