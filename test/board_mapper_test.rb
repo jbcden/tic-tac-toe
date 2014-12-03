@@ -8,7 +8,7 @@ class BoardMapperTest < MiniTest::Test
   end
 
   def test_coordinate_strings_are_mapped_correctly
-    expected = @board[0][0]
+    expected = BoardMapper::Coordinate.new(0,0)
     actual = BoardMapper.map_string(@board, "a1")
 
     assert_equal expected, actual

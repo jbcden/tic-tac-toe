@@ -11,10 +11,11 @@ class PlayerTest < MiniTest::Test
     board = Board.new(3,3)
     player = Player.new("x")
 
-    assert_equal false, board[0][1].marked?
+    assert_equal false, board.marked?('a2')
 
     player.make_move(board, "a2")
-    assert_equal true, board[0][1].marked?
-    assert_equal player.symbol, board[0][1].symbol
+    p board.get("a2")
+    assert_equal true, board.marked?('a2')
+    assert_equal player.symbol, board.get('a2')
   end
 end

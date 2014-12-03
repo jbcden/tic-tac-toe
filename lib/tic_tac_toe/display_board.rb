@@ -34,8 +34,8 @@ class DisplayBoard
   def self.print_row(row, row_num)
     str = ""
     str << ROW_NAMES[row_num] << " "
-    row.each_with_index do |column, index|
-      str << column.symbol
+    row.each_with_index do |symbol, index|
+      str << symbol
       str << "|" unless index == row.size-1
     end
     str << "\n"

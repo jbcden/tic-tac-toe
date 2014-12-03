@@ -8,8 +8,9 @@ class Computer
   def calculate_best_move(board, game)
     unless new_board?(game.board)
       mini_max(game, symbol, 0)
-      BoardMapper.map_coordinate(@move.xval, @move.yval)
+      BoardMapper.map_coordinate(@move.x, @move.y)
     else
+      # unhandled and failing case
       tile = corners(board).sample
       BoardMapper.map_coordinate(tile.xval, tile.yval)
     end
@@ -17,11 +18,11 @@ class Computer
 
   def make_move(board, coordinate)
     tile = BoardMapper.map_string(board, coordinate)
-    tile.mark(symbol)
+    board.mark(coordinate, symbol)
   end
 
   def mini_max(game, current_player, depth)
-    return evaluate(game, depth) if game.end_state?
+    return evaluate(game.board, depth) if game.board.end_state?
     scores = []
     moves = []
     depth += 1
@@ -37,7 +38,8 @@ class Computer
   end
 
   def available_moves(board)
-    unmarked_tiles(board)
+    # unmarked_tiles(board)
+    board.available_tiles
   end
 
   def human?
@@ -46,7 +48,7 @@ class Computer
 
   private
   def new_board?(board)
-    unmarked_tiles(board).size == (board.width*board.height)
+    available_moves(board).size == (board.width*board.height)
   end
 
   def corners(board)
@@ -88,7 +90,8 @@ class Computer
   def get_new_state(tile, game, current_player)
     temp_board = game.board.dup
 
-    temp_board[tile.xval][tile.yval].mark(current_player)
+    coord = BoardMapper.map_coordinate(tile.x, tile.y)
+    temp_board.mark(coord, current_player)
 
     GameState.new(temp_board, game.turn_num+1, current_player)
   end

@@ -1,4 +1,7 @@
 class BoardMapper
+  Coordinate = Struct.new(:x, :y)
+
+
   class InvalidCoordinateError < StandardError
     def initialize(msg="An invalid coordinate was passed in, please try again")
       super
@@ -26,7 +29,7 @@ class BoardMapper
     col = extract_column(location)
 
     if is_valid?(board, row, col)
-      board[ROW_MAPPER[row]][col]
+      return Coordinate.new(ROW_MAPPER[row], col)
     else
       raise InvalidCoordinateError
     end
