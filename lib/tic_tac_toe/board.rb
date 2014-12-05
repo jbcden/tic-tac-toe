@@ -69,20 +69,6 @@ class Board
 
   end
 
-  def set_rows(row, rownum, index)
-    if rownum != board.size - 1
-      # set_tile(row, rownum, index, '_')
-      row[index] = '_'
-    else
-      # set_tile(row, rownum, index, ' ')
-      row[index] = ' '
-    end
-  end
-
-  def set_tile(row, rownum, index, tile_char)
-    row[index] = Tile.new(tile_char, rownum, index)
-  end
-
   def full_board
     if available_tiles.size == (width*height)
       "cat"
