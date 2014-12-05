@@ -27,8 +27,8 @@ class Computer
     moves = []
     depth += 1
 
-    available_moves(game.board).each do |tile|
-      new_state = get_new_state(tile, game, current_player)
+    available_moves(game.board).each do |coord|
+      new_state = get_new_state(coord, game, current_player)
 
       # I got this idea from the post mentioned in the README
       scores << mini_max(new_state, next_player(current_player), depth)
@@ -87,10 +87,9 @@ class Computer
     end
   end
 
-  def get_new_state(tile, game, current_player)
+  def get_new_state(coord, game, current_player)
     temp_board = game.board.dup
 
-    coord = BoardMapper.map_coordinate(tile.x, tile.y)
     temp_board.mark(coord, current_player)
 
     GameState.new(temp_board, game.turn_num+1, current_player)

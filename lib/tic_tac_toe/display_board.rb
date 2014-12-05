@@ -34,11 +34,23 @@ class DisplayBoard
   def self.print_row(row, row_num)
     str = ""
     str << ROW_NAMES[row_num] << " "
-    row.each_with_index do |symbol, index|
-      str << symbol
+    row.each_with_index do |space, index|
+      if space.empty?
+      str << "_"
+      else
+        str << symbol
+      end
       str << "|" unless index == row.size-1
     end
     str << "\n"
     str
   end
 end
+
+#This methid needs refactoring once the new board architecture is in place
+      # if board.marked?(coord)
+      # str << "_"
+      # else
+      #   str << symbol
+      # end
+      # str << "|" unless index == row.size-1

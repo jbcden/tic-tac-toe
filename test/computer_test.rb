@@ -12,54 +12,56 @@ class ComputerTest < MiniTest::Test
   end
 
   def test_can_get_list_of_available_moves
+    skip
     computer = Computer.new("x")
+    @board.board = {
+      :a2 => "x", :b3 => "x", :c2 => "x"
+    }
 
-    # @board[0][1].mark("x")
-    @board.mark("a2", "x")
-    # @board[1][2].mark("x")
-    @board.mark("b3", "x")
-    # @board[2][1].mark("x")
-    @board.mark("c2", "x")
+    # @board.mark("a2", "x")
+    # @board.mark("b3", "x")
+    # @board.mark("c2", "x")
 
     available_moves = computer.available_moves(@board)
 
-    # refute_includes available_moves, @board[0][1]
-    refute_includes available_moves, BoardMapper::Coordinate.new(0,1)
-    # refute_includes available_moves, @board[1][2]
-    refute_includes available_moves, BoardMapper::Coordinate.new(1,2)
-    # refute_includes available_moves, @board[2][1]
-    refute_includes available_moves, BoardMapper::Coordinate.new(2,1)
+    refute_includes available_moves, "a2"
+    refute_includes available_moves, "b3"
+    refute_includes available_moves, "c2"
 
-    # assert_includes available_moves, @board[0][0]
-    assert_includes available_moves, BoardMapper::Coordinate.new(0,0)
-    # assert_includes available_moves, @board[0][2]
-    assert_includes available_moves, BoardMapper::Coordinate.new(0,2)
-    # assert_includes available_moves, @board[1][0]
-    assert_includes available_moves, BoardMapper::Coordinate.new(1,0)
-    # assert_includes available_moves, @board[1][1]
-    assert_includes available_moves, BoardMapper::Coordinate.new(1,1)
-    # assert_includes available_moves, @board[2][0]
-    assert_includes available_moves, BoardMapper::Coordinate.new(2,0)
-    # assert_includes available_moves, @board[2][2]
-    assert_includes available_moves, BoardMapper::Coordinate.new(2,2)
+    # refute_includes available_moves, BoardMapper::Coordinate.new(0,1)
+    # refute_includes available_moves, BoardMapper::Coordinate.new(1,2)
+    # refute_includes available_moves, BoardMapper::Coordinate.new(2,1)
+
+    assert_includes available_moves, "a1"
+    assert_includes available_moves, "a3"
+    assert_includes available_moves, "b1"
+    assert_includes available_moves, "b2"
+    assert_includes available_moves, "c1"
+    assert_includes available_moves, "c3"
+
+    # assert_includes available_moves, BoardMapper::Coordinate.new(0,0)
+    # assert_includes available_moves, BoardMapper::Coordinate.new(0,2)
+    # assert_includes available_moves, BoardMapper::Coordinate.new(1,0)
+    # assert_includes available_moves, BoardMapper::Coordinate.new(1,1)
+    # assert_includes available_moves, BoardMapper::Coordinate.new(2,0)
+    # assert_includes available_moves, BoardMapper::Coordinate.new(2,2)
   end
 
   def test_select_winning_move
+    skip
     computer = Computer.new("x")
+    @board.board = {
+      :a1 => "o", :c2 => "o", :c3 => "o",
+      :a3 => "x", :b1 => "x", :c1 => "x"
+    }
 
-    # @board[0][0].mark("o")
-    @board.mark("a1", "o")
-    # @board[2][1].mark("o")
-    @board.mark("c2", "o")
-    # @board[2][2].mark("o")
-    @board.mark("c3", "o")
+    # @board.mark("a1", "o")
+    # @board.mark("c2", "o")
+    # @board.mark("c3", "o")
 
-    # @board[0][2].mark("x")
-    @board.mark("a3", "x")
-    # @board[1][0].mark("x")
-    @board.mark("b1", "x")
-    # @board[2][0].mark("x")
-    @board.mark("c1", "x")
+    # @board.mark("a3", "x")
+    # @board.mark("b1", "x")
+    # @board.mark("c1", "x")
 
     game = GameState.new(@board, 7, computer.symbol)
 
@@ -69,19 +71,19 @@ class ComputerTest < MiniTest::Test
   end
 
   def test_select_winning_move_depth
+    skip
     computer = Computer.new("o")
+    @board.board = {
+      :c1 => "x", :c2 => "x",
+      :a2 => "o", :b3 => "o", :c3 => "o"
+    }
 
-    # @board[2][0].mark("x")
-    @board.mark("c1", "x")
-    # @board[2][1].mark("x")
-    @board.mark("c2", "x")
+    # @board.mark("c1", "x")
+    # @board.mark("c2", "x")
 
-    # @board[0][1].mark("o")
-    @board.mark("a2", "o")
-    # @board[1][2].mark("o")
-    @board.mark("b3", "o")
-    # @board[2][2].mark("o")
-    @board.mark("c3", "o")
+    # @board.mark("a2", "o")
+    # @board.mark("b3", "o")
+    # @board.mark("c3", "o")
 
     game = GameState.new(@board, 7, computer.symbol)
 
@@ -91,19 +93,19 @@ class ComputerTest < MiniTest::Test
   end
 
   def test_computer_marks_best_move
+    skip
     computer = Computer.new("o")
+    @board = {
+      :c1 => "x", :c2 => "x",
+      :a2 => "o", :b3 => "o", :c3 => "o"
+    }
 
-    # @board[2][0].mark("x")
-    @board.mark("c1", "x")
-    # @board[2][1].mark("x")
-    @board.mark("c2", "x")
+    # @board.mark("c1", "x")
+    # @board.mark("c2", "x")
 
-    # @board[0][1].mark("o")
-    @board.mark("a2", "o")
-    # @board[1][2].mark("o")
-    @board.mark("b3", "o")
-    # @board[2][2].mark("o")
-    @board.mark("c3", "o")
+    # @board.mark("a2", "o")
+    # @board.mark("b3", "o")
+    # @board.mark("c3", "o")
 
     game = GameState.new(@board, 7, computer.symbol)
 
