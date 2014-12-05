@@ -35,25 +35,6 @@ class BoardTest < MiniTest::Test
     assert_equal ' ', actual[5][4]
   end
 
-  def test_will_always_return_false_if_min_turns_is_not_met
-    board = Board.new(3,3)
-    # @board[1][0].mark("x")
-    board.mark("b1", "x")
-    # @board[1][1].mark("x")
-    board.mark("b2", "x")
-    # @board[1][2].mark("x")
-    board.mark("b3", "x")
-    game1 = GameState.new(board, 1, "x")
-    game2 = GameState.new(board, 2, "x")
-    game3 = GameState.new(board, 3, "x")
-    game4 = GameState.new(board, 4, "x")
-
-    assert_equal false, board.end_state?
-    assert_equal false, board.end_state?
-    assert_equal false, board.end_state?
-    assert_equal false, board.end_state?
-  end
-
   def test_will_end_when_a_row_win_condition_is_met
     board = Board.new(3,3)
     # @board[1][0].mark("x")

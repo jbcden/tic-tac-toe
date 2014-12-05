@@ -38,7 +38,7 @@ class DisplayBoard
       if space.empty?
       str << "_"
       else
-        str << symbol
+        str << space
       end
       str << "|" unless index == row.size-1
     end

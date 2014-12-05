@@ -16,12 +16,7 @@ class Board
   end
 
   def end_state?
-    # if turn_num >= min_turns
-    if true
-      row_win || column_win || diagonal_win || full_board
-    else
-      false
-    end
+    row_win || column_win || diagonal_win || full_board
   end
 
   def available_tiles
