@@ -1,4 +1,5 @@
 require_relative 'tile'
+require_relative 'board_mapper'
 require 'forwardable'
 
 class Board
@@ -17,7 +18,7 @@ class Board
   def end_state?
     # if turn_num >= min_turns
     if true
-      row_win(board) || column_win(board) || diagonal_win(board) || full_board(board)
+      row_win || column_win || diagonal_win || full_board
     else
       false
     end
@@ -104,7 +105,7 @@ class Board
     row[index] = Tile.new(tile_char, rownum, index)
   end
 
-  def full_board(board)
+  def full_board
     if available_tiles.size == (width*height)
       "cat"
     else
@@ -112,7 +113,7 @@ class Board
     end
   end
 
-  def winner(xcount, ocount, board, method)
+  def winner(xcount, ocount, method)
     win_num = self.public_method(method.to_sym).call
     cat = (width*height)/2 + 1
 
@@ -127,7 +128,7 @@ class Board
     end
   end
 
-  def diagonal_iterator(board, col_num, iterator)
+  def diagonal_iterator(col_num, iterator)
     xcount = 0
     ocount = 0
 
@@ -136,23 +137,23 @@ class Board
       ocount += 1 if row[col_num] == "o"
       col_num += iterator
     end
-    winner(xcount, ocount, board, "height")
+    winner(xcount, ocount, "height")
   end
 
-  def right_diagonal(board)
-    diagonal_iterator(board, width - 1, -1)
+  def right_diagonal
+    diagonal_iterator(width - 1, -1)
   end
 
-  def left_diagonal(board)
-    diagonal_iterator(board, 0, 1)
+  def left_diagonal
+    diagonal_iterator(0, 1)
   end
 
-  def diagonal_win(board)
-    left_diagonal(board) ||
-        right_diagonal(board)
+  def diagonal_win
+    left_diagonal ||
+        right_diagonal
   end
 
-  def column_win(board)
+  def column_win
     xcount = 0
     ocount = 0
     col_num = 0
@@ -162,7 +163,7 @@ class Board
         xcount += 1 if row[col_num] == "x"
         ocount += 1 if row[col_num] == "o"
       end
-      if w = winner(xcount, ocount, board, "height")
+      if w = winner(xcount, ocount, "height")
         return w
       end
       xcount = 0
@@ -172,7 +173,7 @@ class Board
     false
   end
 
-  def row_win(board)
+  def row_win
     xcount = 0
     ocount = 0
     board.each do |row|
@@ -180,7 +181,7 @@ class Board
         xcount += 1 if col == "x"
         ocount += 1 if col == "o"
       end
-      if w = winner(xcount, ocount, board, "width")
+      if w = winner(xcount, ocount, "width")
         return w
       end
       xcount = 0

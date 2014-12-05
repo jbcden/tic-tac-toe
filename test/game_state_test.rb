@@ -7,6 +7,7 @@ class GameStateTest < MiniTest::Test
   end
 
   def test_will_always_return_false_if_min_turns_is_not_met
+    skip
     @board[1][0].mark("x")
     @board[1][1].mark("x")
     @board[1][2].mark("x")
@@ -22,6 +23,7 @@ class GameStateTest < MiniTest::Test
   end
 
   def test_will_end_when_a_row_win_condition_is_met
+    skip
     @board[1][0].mark("x")
     @board[1][1].mark("x")
     @board[1][2].mark("x")
@@ -31,6 +33,7 @@ class GameStateTest < MiniTest::Test
   end
 
   def test_will_end_when_a_column_win_condition_is_met
+    skip
     @board[0][2].mark("x")
     @board[1][2].mark("x")
     @board[2][2].mark("x")
@@ -40,6 +43,7 @@ class GameStateTest < MiniTest::Test
   end
 
   def test_will_end_when_a_left_diagonal_win_condition_is_met
+    skip
     @board[0][0].mark("x")
     @board[1][1].mark("x")
     @board[2][2].mark("x")
@@ -49,6 +53,7 @@ class GameStateTest < MiniTest::Test
   end
 
   def test_will_end_when_a_right_diagonal_win_condition_is_met
+    skip
     @board[0][2].mark("x")
     @board[1][1].mark("x")
     @board[2][0].mark("x")
