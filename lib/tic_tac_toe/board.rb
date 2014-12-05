@@ -4,14 +4,15 @@ require 'forwardable'
 
 class Board
   extend Forwardable
+  BOARD_MAPPINGS = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", 
+                    "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
   attr_reader :width, :height, :board
   attr_writer :board
   def initialize(width, height)
     @width = width
     @height = height
-    @board = Array.new(height)
+    @board = Hash.new
 
-    init_board_array
     init_board
   end
 
@@ -21,69 +22,51 @@ class Board
 
   def available_tiles
     unmarked = []
-    board.each_with_index  do |row, rownum|
-      row.each_with_index do |sym, index|
-        if sym == '_' || sym == ' '
-          unmarked << BoardMapper::Coordinate.new(rownum, index)
-        end
-      end
-    end
-    unmarked
+    unmarked = board.select {|coord, space| marked?(coord)}.
+                     map {|coord, space| coord.to_s}
   end
 
   def mark(coordinate, symbol)
-    location = BoardMapper.map_string(self, coordinate)
-    set_location_symbol(location, symbol)
+    set_location_symbol(coordinate, symbol)
   end
 
   def marked?(coordinate)
-    sym = get_location_symbol(BoardMapper.map_string(self, coordinate))
-
-    sym != '_' and sym != ' '
+    board[coordinate].empty?
   end
 
   def get(coordinate)
-    location = BoardMapper.map_string(self, coordinate)
-    get_location_symbol(location)
+    get_location_symbol(coordinate)
   end
 
   def display
     DisplayBoard.call(board)
   end
 
-  def dup
-    # copy board class and deep copy the inner board array
-    # Marshal is necessary b/c board array does not contain
-    # Plain Old Ruby Objects
-    super.tap do
-      temp_board = Marshal.load(Marshal.dump(board))
-      self.board = temp_board
-    end
-  end
-
-  def_delegators :@board, :[], :[]=, :each, :first, :size, :last
+  def_delegators :@board, :[], :[]=, :each, :first, :size, :last, :merge!
   private
 
   def set_location_symbol(location, symbol)
-    board[location.x][location.y] = symbol
+    board[location.to_sym] = symbol
   end
 
   def get_location_symbol(location)
-    board[location.x][location.y]
-  end
-
-  def init_board_array
-    board.each_with_index do |row, index|
-      board[index] = Array.new(width)
-    end
+    board[location.to_sym]
   end
 
   def init_board
-    board.each_with_index do |row, rownum|
-      row.each_with_index do |column, index|
-        set_rows(row, rownum, index)
+    row_index = 0
+    column_index = 1
+    @height.times do
+      @width.times do
+        key = ""
+        key << BOARD_MAPPINGS[row_index] << column_index.to_s
+        @board[key.to_sym] = ""
+        column_index += 1
       end
+      row_index += 1
+      column_index = 1
     end
+
   end
 
   def set_rows(row, rownum, index)
