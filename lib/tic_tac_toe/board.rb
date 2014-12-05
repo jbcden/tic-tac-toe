@@ -70,7 +70,7 @@ class Board
   end
 
   def full_board
-    if available_tiles.size == (width*height)
+    if available_tiles.empty?
       "cat"
     else
       false

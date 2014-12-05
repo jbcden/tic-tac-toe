@@ -77,6 +77,19 @@ class BoardTest < MiniTest::Test
     assert_equal "x", board.end_state?
   end
 
+  def test_cat_is_winner_when_board_is_full
+    board = Board.new(3,3)
+    updated_board = {
+      a1: "0", a2: "o", a3: "x",
+      b1: "x", b2: "x", b3: "o",
+      c1: "o", c2: "x", c3: "o"
+    }
+
+    board.merge!(updated_board)
+
+    assert_equal "cat", board.end_state?
+  end
+
   def test_can_list_available_spaces
     board = Board.new(3,3)
     updated_board = {
