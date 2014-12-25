@@ -38,7 +38,6 @@ class Computer
   end
 
   def available_moves(board)
-    # unmarked_tiles(board)
     board.available_tiles
   end
 

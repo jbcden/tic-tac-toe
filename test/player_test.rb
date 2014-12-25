@@ -11,7 +11,6 @@ class PlayerTest < MiniTest::Test
     board = Board.new(3,3)
     player = Player.new("x")
 
-    p board.board
     assert_equal false, board.marked?('a2')
 
     player.make_move(board, "a2")

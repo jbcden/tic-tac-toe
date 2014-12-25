@@ -1,5 +1,3 @@
-require_relative 'tile'
-require_relative 'board_mapper'
 require 'forwardable'
 
 class Board

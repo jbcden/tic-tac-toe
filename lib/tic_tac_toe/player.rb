@@ -14,7 +14,6 @@ class Player
   end
 
   def make_move(board, coordinate)
-    # tile = BoardMapper.map_string(board, coordinate)
     board.mark(coordinate, symbol)
   end
 

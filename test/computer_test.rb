@@ -12,15 +12,11 @@ class ComputerTest < MiniTest::Test
   end
 
   def test_can_get_list_of_available_moves
-    skip
     computer = Computer.new("x")
-    @board.board = {
+    marked_squares = {
       :a2 => "x", :b3 => "x", :c2 => "x"
     }
-
-    # @board.mark("a2", "x")
-    # @board.mark("b3", "x")
-    # @board.mark("c2", "x")
+    @board.board.merge!(marked_squares)
 
     available_moves = computer.available_moves(@board)
 
@@ -28,23 +24,12 @@ class ComputerTest < MiniTest::Test
     refute_includes available_moves, "b3"
     refute_includes available_moves, "c2"
 
-    # refute_includes available_moves, BoardMapper::Coordinate.new(0,1)
-    # refute_includes available_moves, BoardMapper::Coordinate.new(1,2)
-    # refute_includes available_moves, BoardMapper::Coordinate.new(2,1)
-
     assert_includes available_moves, "a1"
     assert_includes available_moves, "a3"
     assert_includes available_moves, "b1"
     assert_includes available_moves, "b2"
     assert_includes available_moves, "c1"
     assert_includes available_moves, "c3"
-
-    # assert_includes available_moves, BoardMapper::Coordinate.new(0,0)
-    # assert_includes available_moves, BoardMapper::Coordinate.new(0,2)
-    # assert_includes available_moves, BoardMapper::Coordinate.new(1,0)
-    # assert_includes available_moves, BoardMapper::Coordinate.new(1,1)
-    # assert_includes available_moves, BoardMapper::Coordinate.new(2,0)
-    # assert_includes available_moves, BoardMapper::Coordinate.new(2,2)
   end
 
   def test_select_winning_move
