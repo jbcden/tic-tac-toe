@@ -6,15 +6,10 @@ class DisplayBoard
               ]
 
   def self.call(board)
+    @@board = board
     str = ""
-    row_num = 0
-    str << print_column_numbers(board.first.size)
-
-    board.each do |row|
-      str << print_row(row, row_num)
-      row_num += 1
-    end
-    str
+    str << print_column_numbers(@@board.width)
+    print_rows(str)
   end
 
   private
@@ -31,26 +26,46 @@ class DisplayBoard
     str
   end
 
-  def self.print_row(row, row_num)
+  def self.print_row(row_num)
     str = ""
-    str << ROW_NAMES[row_num] << " "
-    row.each_with_index do |space, index|
-      if space.empty?
-      str << "_"
-      else
-        str << space
-      end
-      str << "|" unless index == row.size-1
-    end
+    row = ROW_NAMES[row_num]
+    str << row << " "
+    str << print_row_columns(row, row_num)
+
     str << "\n"
     str
   end
-end
 
-#This methid needs refactoring once the new board architecture is in place
-      # if board.marked?(coord)
-      # str << "_"
-      # else
-      #   str << symbol
-      # end
-      # str << "|" unless index == row.size-1
+  def self.print_row_columns(row, row_num)
+    str = ""
+    x_coord = 1
+    @@board.width.times do
+      coord = get_coord(row, x_coord)
+      symbol = @@board.get(coord)
+
+      empty_symbol?(symbol, row_num, @@board.height) ? str << "_" : str << symbol
+
+      str << "|" unless x_coord == @@board.width
+      x_coord += 1
+    end
+    str
+  end
+
+  def self.get_coord(row, x_coord)
+    "" << row << x_coord.to_s
+  end
+
+  def self.print_rows(str)
+    row_num = 0
+    @@board.height.times do
+      str << print_row(row_num)
+      row_num += 1
+    end
+    str
+  end
+
+  def self.empty_symbol?(symbol, row_num, board_height)
+    # symbols are initialized as " "
+    symbol.strip.empty? && row_num != board_height - 1
+ end
+end

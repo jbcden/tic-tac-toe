@@ -4,7 +4,7 @@ require 'forwardable'
 
 class Board
   extend Forwardable
-  BOARD_MAPPINGS = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", 
+  BOARD_MAPPINGS = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
                     "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
   attr_reader :width, :height, :board
   attr_writer :board
@@ -22,16 +22,17 @@ class Board
 
   def available_tiles
     unmarked = []
-    unmarked = board.select {|coord, space| marked?(coord)}.
-                     map {|coord, space| coord.to_s}
+    unmarked = board.reject {|coord, space|
+      marked?(coord)
+    }.map {|coord, space| coord.to_s}
   end
 
   def mark(coordinate, symbol)
-    set_location_symbol(coordinate, symbol)
+    set_location_symbol(coordinate.to_sym, symbol)
   end
 
   def marked?(coordinate)
-    board[coordinate].empty?
+    board[coordinate.to_sym] != " "
   end
 
   def get(coordinate)
@@ -39,10 +40,10 @@ class Board
   end
 
   def display
-    DisplayBoard.call(board)
+    DisplayBoard.call(self)
   end
 
-  def_delegators :@board, :[], :[]=, :each, :first, :size, :last, :merge!
+  def_delegators :@board, :[], :[]=, :each, :first, :size, :last, :merge!, :values
   private
 
   def set_location_symbol(location, symbol)
@@ -60,7 +61,7 @@ class Board
       @width.times do
         key = ""
         key << BOARD_MAPPINGS[row_index] << column_index.to_s
-        @board[key.to_sym] = ""
+        @board[key.to_sym] = " "
         column_index += 1
       end
       row_index += 1
@@ -85,6 +86,7 @@ class Board
       "x"
     elsif ocount == win_num
       "o"
+    # consider removing this seemingly redundant case
     elsif ocount == cat || xcount == cat
       "cat"
     else

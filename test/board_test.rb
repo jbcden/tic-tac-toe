@@ -3,6 +3,7 @@ require 'game_state'
 require 'board'
 
 class BoardTest < MiniTest::Test
+  EMPTY_SPACE = " "
   def test_board_takes_a_height_and_length
     board = Board.new(3,3)
     assert_equal board.height, 3
@@ -12,21 +13,21 @@ class BoardTest < MiniTest::Test
   def test_board_can_get_a_coordinate
     board = Board.new(3,3)
 
-    assert_empty board.get('a1')
+    assert_equal EMPTY_SPACE, board.get('a1')
   end
 
   def test_board_is_set_correctly
     actual = Board.new(5,6)
 
-    assert_empty actual.get("a1")
-    assert_empty actual.get("b2")
-    assert_empty actual.get("c3")
-    assert_empty actual.get("d4")
-    assert_empty actual.get("e5")
+    assert_equal EMPTY_SPACE, actual.get("a1")
+    assert_equal EMPTY_SPACE, actual.get("b2")
+    assert_equal EMPTY_SPACE, actual.get("c3")
+    assert_equal EMPTY_SPACE, actual.get("d4")
+    assert_equal EMPTY_SPACE, actual.get("e5")
 
-    assert_empty actual.get("f1")
-    assert_empty actual.get("f3")
-    assert_empty actual.get("f5")
+    assert_equal EMPTY_SPACE, actual.get("f1")
+    assert_equal EMPTY_SPACE, actual.get("f3")
+    assert_equal EMPTY_SPACE, actual.get("f5")
   end
 
   def test_will_end_when_a_row_win_condition_is_met
