@@ -40,14 +40,6 @@ class ComputerTest < MiniTest::Test
       :a3 => "x", :b1 => "x", :c1 => "x"
     }
 
-    # @board.mark("a1", "o")
-    # @board.mark("c2", "o")
-    # @board.mark("c3", "o")
-
-    # @board.mark("a3", "x")
-    # @board.mark("b1", "x")
-    # @board.mark("c1", "x")
-
     game = GameState.new(@board, 7, computer.symbol)
 
     move = computer.calculate_best_move(@board, game)

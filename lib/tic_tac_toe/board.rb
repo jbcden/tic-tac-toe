@@ -41,15 +41,64 @@ class Board
     DisplayBoard.call(self)
   end
 
+  """
+  This method will return an array of the values for
+  each column in each row.
+  """
+  def get_rows
+    rows = []
+    row_names = get_row_names
+    row_names.each do |row_name|
+      rows << column_iterator(row_name)
+    end
+    rows
+  end
+
+  def get_columns
+    columns = []
+    col_num = 1
+    height.times do
+      columns << row_iterator(col_num)
+      col_num += 1
+    end
+    columns
+  end
+
   def_delegators :@board, :[], :[]=, :each, :first, :size, :last, :merge!, :values
   private
+  def row_iterator(col_num)
+    column = []
+    get_row_names.each do |row|
+      column << get_location_symbol(get_column_name(row, col_num))
+    end
+    column
+  end
+
+  # iterates over current rows columns and returns the values
+  def column_iterator(row_name)
+    col_count = 1
+    row = []
+    width.times do
+      row << get_location_symbol(get_column_name(row_name, col_count))
+      col_count += 1
+    end
+    row
+  end
+
+  def get_column_name(row_name, col_num)
+    "#{row_name}#{col_num}".to_sym
+  end
+
+  def get_row_names
+    board.keys.map {|c| c[0]}.join.squeeze.chars
+  end
 
   def set_location_symbol(location, symbol)
     board[location.to_sym] = symbol
   end
 
   def get_location_symbol(location)
-    board[location.to_sym]
+    board.fetch(location.to_sym)
   end
 
   def init_board
@@ -117,39 +166,37 @@ class Board
         right_diagonal
   end
 
-  def column_win
-    xcount = 0
-    ocount = 0
-    col_num = 0
+  # want to rename chunk to be something more descriptive...
+  def xsum(chunk)
+    chunk.select { |location|
+      location == "x"
+    }.size
+  end
 
-    width.times do
-      board.each do |row|
-        xcount += 1 if row[col_num] == "x"
-        ocount += 1 if row[col_num] == "o"
-      end
+  def osum(chunk)
+    chunk.select { |location|
+      location == "o"
+    }.size
+  end
+
+  def column_win
+    get_columns.each do |col|
+      xcount = xsum(col)
+      ocount = osum(col)
       if w = winner(xcount, ocount, "height")
         return w
       end
-      xcount = 0
-      ocount = 0
-      col_num += 1
     end
     false
   end
 
   def row_win
-    xcount = 0
-    ocount = 0
-    board.each do |row|
-      row.each do |col|
-        xcount += 1 if col == "x"
-        ocount += 1 if col == "o"
-      end
+    get_rows.each do |row|
+      xcount = xsum(row)
+      ocount = osum(row)
       if w = winner(xcount, ocount, "width")
         return w
       end
-      xcount = 0
-      ocount = 0
     end
     false
   end

@@ -8,7 +8,8 @@ class Computer
   def calculate_best_move(board, game)
     unless new_board?(game.board)
       mini_max(game, symbol, 0)
-      BoardMapper.map_coordinate(@move.x, @move.y)
+      @move
+      # BoardMapper.map_coordinate(@move.x, @move.y)
     else
       # unhandled and failing case
       tile = corners(board).sample
@@ -22,6 +23,7 @@ class Computer
   end
 
   def mini_max(game, current_player, depth)
+    puts "ASASDGFSDG"
     return evaluate(game.board, depth) if game.board.end_state?
     scores = []
     moves = []
@@ -32,7 +34,7 @@ class Computer
 
       # I got this idea from the post mentioned in the README
       scores << mini_max(new_state, next_player(current_player), depth)
-      moves << tile
+      moves << coord
     end
     return choose_move(current_player, scores, moves)
   end
@@ -65,6 +67,7 @@ class Computer
   end
 
   def choose_move(current_player, scores, moves)
+    puts "SDGASDGASG"
     if current_player == symbol
       max_index = scores.each_with_index.max[1]
       @move = moves[max_index]
