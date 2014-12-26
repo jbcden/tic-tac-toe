@@ -64,8 +64,40 @@ class Board
     columns
   end
 
+  def get_left_diagonal
+    diagonal = []
+    start = width
+    get_row_names.each do |row_name|
+      diagonal << get_location_symbol(get_column_name(row_name,start))
+      start -= 1
+    end
+    diagonal
+  end
+
+  def get_right_diagonal
+    diagonal = []
+    start = 1
+    get_row_names.each do |row_name|
+      diagonal << get_location_symbol(get_column_name(row_name,start))
+      start += 1
+    end
+    diagonal
+  end
+
   def_delegators :@board, :[], :[]=, :each, :first, :size, :last, :merge!, :values
   private
+  def diagonal_iterator(col_num, iterator)
+    xcount = 0
+    ocount = 0
+
+    board.each do |row|
+      xcount += 1 if row[col_num] == "x"
+      ocount += 1 if row[col_num] == "o"
+      col_num += iterator
+    end
+    winner(xcount, ocount, "height")
+  end
+
   def row_iterator(col_num)
     column = []
     get_row_names.each do |row|
@@ -141,24 +173,22 @@ class Board
     end
   end
 
-  def diagonal_iterator(col_num, iterator)
-    xcount = 0
-    ocount = 0
-
-    board.each do |row|
-      xcount += 1 if row[col_num] == "x"
-      ocount += 1 if row[col_num] == "o"
-      col_num += iterator
-    end
-    winner(xcount, ocount, "height")
-  end
-
   def right_diagonal
-    diagonal_iterator(width - 1, -1)
+    xcount = xsum(get_right_diagonal)
+    ocount = osum(get_right_diagonal)
+    if w = winner(xcount, ocount, "height")
+      return w
+    end
+    false
   end
 
   def left_diagonal
-    diagonal_iterator(0, 1)
+    xcount = xsum(get_left_diagonal)
+    ocount = osum(get_left_diagonal)
+    if w = winner(xcount, ocount, "height")
+      return w
+    end
+    false
   end
 
   def diagonal_win

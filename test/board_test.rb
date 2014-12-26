@@ -55,7 +55,6 @@ class BoardTest < MiniTest::Test
   end
 
   def test_will_end_when_a_left_diagonal_win_condition_is_met
-    skip
     board = Board.new(3,3)
 
     board.mark("a1", "x")
@@ -68,7 +67,6 @@ class BoardTest < MiniTest::Test
   end
 
   def test_will_end_when_a_right_diagonal_win_condition_is_met
-    skip
     board = Board.new(3,3)
 
     board.mark("a3", "x")
@@ -146,5 +144,33 @@ class BoardTest < MiniTest::Test
                    ["x", "o", "o"]]
 
     assert_equal(board.get_columns, board_array)
+  end
+
+  def test_can_list_diagonals_from_left
+    board = Board.new(3,3)
+    updated_board = {
+      a1: "o", a2: "o", a3: "x",
+      b1: "x", b2: "x", b3: "o",
+      c1: "o", c2: "x", c3: "o"
+    }
+
+    board.merge!(updated_board)
+    board_array = ["x", "x", "o"]
+
+    assert_equal(board.get_left_diagonal, board_array)
+  end
+
+  def test_can_list_diagonals_from_right
+    board = Board.new(3,3)
+    updated_board = {
+      a1: "o", a2: "o", a3: "x",
+      b1: "x", b2: "x", b3: "o",
+      c1: "o", c2: "x", c3: "o"
+    }
+
+    board.merge!(updated_board)
+    board_array = ["o", "x", "o"]
+
+    assert_equal(board.get_right_diagonal, board_array)
   end
 end
