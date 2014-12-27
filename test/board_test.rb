@@ -1,5 +1,4 @@
 require_relative './test_helper'
-require 'game_state'
 require 'board'
 
 class BoardTest < MiniTest::Test
@@ -37,8 +36,6 @@ class BoardTest < MiniTest::Test
     board.mark("b2", "x")
     board.mark("b3", "x")
 
-    game = GameState.new(board, 5, "x")
-
     assert_equal "x", board.end_state?
   end
 
@@ -48,8 +45,6 @@ class BoardTest < MiniTest::Test
     board.mark("a3", "x")
     board.mark("b3", "x")
     board.mark("c3", "x")
-
-    game = GameState.new(board, 5, "x")
 
     assert_equal "x", board.end_state?
   end
@@ -61,8 +56,6 @@ class BoardTest < MiniTest::Test
     board.mark("b2", "x")
     board.mark("c3", "x")
 
-    game = GameState.new(board, 5, "x")
-
     assert_equal "x", board.end_state?
   end
 
@@ -72,8 +65,6 @@ class BoardTest < MiniTest::Test
     board.mark("a3", "x")
     board.mark("b2", "x")
     board.mark("c1", "x")
-
-    game = GameState.new(board, 5, "x")
 
     assert_equal "x", board.end_state?
   end
