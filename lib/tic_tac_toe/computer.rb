@@ -5,9 +5,12 @@ class Computer
     @symbol = symbol
   end
 
-  def calculate_best_move(board, game)
-    unless new_board?(game.board)
-      mini_max(game, symbol, 0)
+  # remove game from being passed in.
+  # it is redundant as it is re-initialized
+  # in mini-max and does not serve any purpose in tic_tac_toe.rb
+  def calculate_best_move(board)
+    unless new_board?(board)
+      mini_max(board, symbol, 0)
       @move
       # BoardMapper.map_coordinate(@move.x, @move.y)
     else
@@ -19,17 +22,17 @@ class Computer
     board.mark(coordinate, symbol)
   end
 
-  def mini_max(game, current_player, depth)
-    return evaluate(game.board, depth) if game.board.end_state?
+  def mini_max(board, current_player, depth)
+    return evaluate(board, depth) if board.end_state?
     scores = []
     moves = []
     depth += 1
 
-    available_moves(game.board).each do |coord|
-      new_state = get_new_state(coord, game, current_player)
+    available_moves(board).each do |coord|
+      new_board_state = get_new_state(coord, board, current_player)
 
       # I got this idea from the post mentioned in the README
-      scores << mini_max(new_state, next_player(current_player), depth)
+      scores << mini_max(new_board_state, next_player(current_player), depth)
       moves << coord
     end
     return choose_move(current_player, scores, moves)
@@ -74,12 +77,12 @@ class Computer
     end
   end
 
-  def get_new_state(coord, game, current_player)
-    temp_board = game.board.dup
+  def get_new_state(coord, board, current_player)
+    temp_board = board.dup
 
     temp_board.mark(coord, current_player)
 
-    GameState.new(temp_board, game.turn_num+1, current_player)
+    temp_board
   end
 
   def next_player(current_player)

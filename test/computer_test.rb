@@ -41,9 +41,7 @@ class ComputerTest < MiniTest::Test
 
     @board.merge!(updated_board)
 
-    game = GameState.new(@board, 7, computer.symbol)
-
-    move = computer.calculate_best_move(@board, game)
+    move = computer.calculate_best_move(@board)
 
     assert_equal "b2", move
   end
@@ -57,9 +55,7 @@ class ComputerTest < MiniTest::Test
 
     @board.merge!(updated_board)
 
-    game = GameState.new(@board, 7, computer.symbol)
-
-    move = computer.calculate_best_move(@board, game)
+    move = computer.calculate_best_move(@board)
 
     assert_equal "a3", move
   end
@@ -73,9 +69,7 @@ class ComputerTest < MiniTest::Test
 
     @board.merge!(updated_board)
 
-    game = GameState.new(@board, 7, computer.symbol)
-
-    move = computer.calculate_best_move(@board, game)
+    move = computer.calculate_best_move(@board)
     computer.make_move(@board, move)
 
     assert_equal true, @board.marked?(move)
@@ -84,8 +78,6 @@ class ComputerTest < MiniTest::Test
 
   def test_computer_selects_corner_if_first
     computer = Computer.new("o")
-    game = GameState.new(@board, 1, computer.symbol)
-
-    move = computer.calculate_best_move(@board, game)
+    move = computer.calculate_best_move(@board)
   end
 end

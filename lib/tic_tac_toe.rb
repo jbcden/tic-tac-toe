@@ -27,7 +27,7 @@ class TicTacToe
     print_intro
     choose_human
     set_players_order
-    initialize_game_state
+    # initialize_game_state
     game_loop
   end
 
@@ -71,7 +71,7 @@ class TicTacToe
   end
 
   def game_loop
-    while !@game.board.end_state?
+    while !@board.end_state?
       clear_board
 
       current_player = @players[@turn_num % 2]
@@ -79,12 +79,11 @@ class TicTacToe
       take_turn(current_player)
 
       @turn_num += 1
-      @game = GameState.new(@board, @turn_num, @players[@turn_num % 2])
     end
 
     clear_board
 
-    puts "The winner is: #{game.board.end_state?}"
+    puts "The winner is: #{@board.end_state?}"
   end
 
   private
@@ -93,7 +92,7 @@ class TicTacToe
     if current_player.human?
       human_move(current_player)
     else
-      move = current_player.calculate_best_move(@board, @game)
+      move = current_player.calculate_best_move(@board)
       computer.make_move(@board, move)
     end
   end
