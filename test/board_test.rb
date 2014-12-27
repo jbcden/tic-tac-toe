@@ -178,4 +178,18 @@ class BoardTest < MiniTest::Test
     corners = ["a1", "a3", "c1", "c3"]
     assert_equal corners, board.corners
   end
+
+  def test_it_throws_an_error_when_given_invalid_coordinate_row
+    board = Board.new(3,3)
+    assert_raises(Board::InvalidCoordinateError) {
+      board.mark("d1", "x")
+    }
+  end
+
+  def test_it_throws_an_error_when_given_invalid_coordinate_column
+    board = Board.new(3,3)
+    assert_raises(Board::InvalidCoordinateError) {
+      board.mark("b4", "x")
+    }
+  end
 end

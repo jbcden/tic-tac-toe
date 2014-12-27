@@ -110,7 +110,7 @@ class TicTacToe
         move = gets.chomp
         current_player.make_move(@board, move)
         break
-      rescue BoardMapper::InvalidCoordinateError => e
+      rescue Board::InvalidCoordinateError => e
         error = e.message
       rescue Tile::InvalidActionError => e
         error = e.message
