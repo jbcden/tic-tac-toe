@@ -11,14 +11,11 @@ class Computer
       @move
       # BoardMapper.map_coordinate(@move.x, @move.y)
     else
-      # unhandled and failing case
-      tile = corners(board).sample
-      BoardMapper.map_coordinate(tile.xval, tile.yval)
+      tile = board.corners.sample
     end
   end
 
   def make_move(board, coordinate)
-    # tile = BoardMapper.map_string(board, coordinate)
     board.mark(coordinate, symbol)
   end
 
@@ -49,16 +46,6 @@ class Computer
   private
   def new_board?(board)
     available_moves(board).size == (board.width*board.height)
-  end
-
-  def corners(board)
-    corners = []
-
-    corners << board.first[0]
-    corners << board.first.last
-
-    corners << board.last.first
-    corners << board.last.last
   end
 
   def initial_game_state(board, turn_num, symbol)

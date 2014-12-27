@@ -78,10 +78,14 @@ class ComputerTest < MiniTest::Test
     move = computer.calculate_best_move(@board, game)
     computer.make_move(@board, move)
 
-    tile = BoardMapper.map_string(@board, move)
+    assert_equal true, @board.marked?(move)
+    assert_equal "o", @board.get(move)
+  end
 
-    coord = BoardMapper.map_coordinate(tile.x, tile.y)
-    assert_equal true, @board.marked?(coord)
-    assert_equal "o", @board.get(coord)
+  def test_computer_selects_corner_if_first
+    computer = Computer.new("o")
+    game = GameState.new(@board, 1, computer.symbol)
+
+    move = computer.calculate_best_move(@board, game)
   end
 end

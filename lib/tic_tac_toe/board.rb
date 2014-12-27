@@ -84,6 +84,18 @@ class Board
     diagonal
   end
 
+  def corners
+    corners = []
+    row_names = get_row_names
+    first_col = 1
+    last_col = width
+    corners << "#{row_names.first}#{first_col}"
+    corners << "#{row_names.first}#{last_col}"
+    corners << "#{row_names.last}#{first_col}"
+    corners << "#{row_names.last}#{last_col}"
+    corners
+  end
+
   def dup
     super.tap do
       temp_board = Marshal.load(Marshal.dump(board))

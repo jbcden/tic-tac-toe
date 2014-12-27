@@ -172,4 +172,10 @@ class BoardTest < MiniTest::Test
 
     assert_equal(board.get_right_diagonal, board_array)
   end
+
+  def test_can_list_corners
+    board = Board.new(3,3)
+    corners = ["a1", "a3", "c1", "c3"]
+    assert_equal corners, board.corners
+  end
 end
