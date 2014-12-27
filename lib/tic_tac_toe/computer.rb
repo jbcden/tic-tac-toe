@@ -23,7 +23,6 @@ class Computer
   end
 
   def mini_max(game, current_player, depth)
-    puts "ASASDGFSDG"
     return evaluate(game.board, depth) if game.board.end_state?
     scores = []
     moves = []
@@ -67,7 +66,6 @@ class Computer
   end
 
   def choose_move(current_player, scores, moves)
-    puts "SDGASDGASG"
     if current_player == symbol
       max_index = scores.each_with_index.max[1]
       @move = moves[max_index]

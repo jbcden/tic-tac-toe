@@ -33,12 +33,13 @@ class ComputerTest < MiniTest::Test
   end
 
   def test_select_winning_move
-    skip
     computer = Computer.new("x")
-    @board.board = {
+    updated_board = {
       :a1 => "o", :c2 => "o", :c3 => "o",
       :a3 => "x", :b1 => "x", :c1 => "x"
     }
+
+    @board.merge!(updated_board)
 
     game = GameState.new(@board, 7, computer.symbol)
 
@@ -48,19 +49,13 @@ class ComputerTest < MiniTest::Test
   end
 
   def test_select_winning_move_depth
-    skip
     computer = Computer.new("o")
-    @board.board = {
+    updated_board = {
       :c1 => "x", :c2 => "x",
       :a2 => "o", :b3 => "o", :c3 => "o"
     }
 
-    # @board.mark("c1", "x")
-    # @board.mark("c2", "x")
-
-    # @board.mark("a2", "o")
-    # @board.mark("b3", "o")
-    # @board.mark("c3", "o")
+    @board.merge!(updated_board)
 
     game = GameState.new(@board, 7, computer.symbol)
 
@@ -70,19 +65,13 @@ class ComputerTest < MiniTest::Test
   end
 
   def test_computer_marks_best_move
-    skip
     computer = Computer.new("o")
-    @board = {
+    updated_board = {
       :c1 => "x", :c2 => "x",
       :a2 => "o", :b3 => "o", :c3 => "o"
     }
 
-    # @board.mark("c1", "x")
-    # @board.mark("c2", "x")
-
-    # @board.mark("a2", "o")
-    # @board.mark("b3", "o")
-    # @board.mark("c3", "o")
+    @board.merge!(updated_board)
 
     game = GameState.new(@board, 7, computer.symbol)
 

@@ -79,7 +79,6 @@ class BoardTest < MiniTest::Test
   end
 
   def test_cat_is_winner_when_board_is_full
-    skip
     board = Board.new(3,3)
     updated_board = {
       a1: "o", a2: "o", a3: "x",

@@ -84,20 +84,15 @@ class Board
     diagonal
   end
 
-  def_delegators :@board, :[], :[]=, :each, :first, :size, :last, :merge!, :values
-  private
-  def diagonal_iterator(col_num, iterator)
-    xcount = 0
-    ocount = 0
-
-    board.each do |row|
-      xcount += 1 if row[col_num] == "x"
-      ocount += 1 if row[col_num] == "o"
-      col_num += iterator
+  def dup
+    super.tap do
+      temp_board = Marshal.load(Marshal.dump(board))
+      self.board = temp_board
     end
-    winner(xcount, ocount, "height")
   end
 
+  def_delegators :@board, :[], :[]=, :each, :first, :size, :last, :merge!, :values
+  private
   def row_iterator(col_num)
     column = []
     get_row_names.each do |row|
@@ -173,22 +168,24 @@ class Board
     end
   end
 
-  def right_diagonal
-    xcount = xsum(get_right_diagonal)
-    ocount = osum(get_right_diagonal)
-    if w = winner(xcount, ocount, "height")
+  def win?(xcount, ocount, method)
+    if w = winner(xcount, ocount, method)
       return w
     end
     false
   end
 
+  def right_diagonal
+    xcount = xsum(get_right_diagonal)
+    ocount = osum(get_right_diagonal)
+
+    win?(xcount, ocount, "height")
+  end
+
   def left_diagonal
     xcount = xsum(get_left_diagonal)
     ocount = osum(get_left_diagonal)
-    if w = winner(xcount, ocount, "height")
-      return w
-    end
-    false
+    win?(xcount, ocount, "height")
   end
 
   def diagonal_win
@@ -209,6 +206,7 @@ class Board
     }.size
   end
 
+  # maybe need to refactor column and row win to be more DRY
   def column_win
     get_columns.each do |col|
       xcount = xsum(col)
