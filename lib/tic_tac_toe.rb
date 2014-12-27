@@ -2,7 +2,6 @@ require_relative 'tic_tac_toe/board'
 require_relative 'tic_tac_toe/board_mapper'
 require_relative 'tic_tac_toe/computer'
 require_relative 'tic_tac_toe/display_board'
-require_relative 'tic_tac_toe/game_state'
 require_relative 'tic_tac_toe/player'
 require_relative 'tic_tac_toe/tile'
 
@@ -27,7 +26,6 @@ class TicTacToe
     print_intro
     choose_human
     set_players_order
-    # initialize_game_state
     game_loop
   end
 
@@ -64,10 +62,6 @@ class TicTacToe
       @players << @computer
       @players << @player
     end
-  end
-
-  def initialize_game_state
-    @game = GameState.new(@board, @turn_num, @players.first)
   end
 
   def game_loop
