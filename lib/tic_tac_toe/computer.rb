@@ -5,9 +5,6 @@ class Computer
     @symbol = symbol
   end
 
-  # remove game from being passed in.
-  # it is redundant as it is re-initialized
-  # in mini-max and does not serve any purpose in tic_tac_toe.rb
   def calculate_best_move(board)
     unless new_board?(board)
       mini_max(board, symbol, 0)
@@ -51,10 +48,6 @@ class Computer
     available_moves(board).size == (board.width*board.height)
   end
 
-  def initial_game_state(board, turn_num, symbol)
-    GameState.new(board, turn_num, symbol)
-  end
-
   def choose_move(current_player, scores, moves)
     if current_player == symbol
       max_index = scores.each_with_index.max[1]
@@ -67,10 +60,10 @@ class Computer
     end
   end
 
-  def evaluate(game, depth)
-    if game.end_state? == symbol
+  def evaluate(board, depth)
+    if board.end_state? == symbol
       return 10 - depth
-    elsif game.end_state? == opponent
+    elsif board.end_state? == opponent
       return depth - 10
     else
       return 0
