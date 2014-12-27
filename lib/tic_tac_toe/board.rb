@@ -102,7 +102,7 @@ class Board
     end
   end
 
-  def_delegators :@board, :[], :[]=, :each, :first, :size, :last, :merge!, :values
+  def_delegators :@board, :[], :[]=, :merge!
   private
   def valid_coordinate?(coord)
     col = valid_column_name?(coord)
