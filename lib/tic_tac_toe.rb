@@ -71,7 +71,7 @@ class TicTacToe
   end
 
   def game_loop
-    while !@game.end_state?
+    while !@game.board.end_state?
       clear_board
 
       current_player = @players[@turn_num % 2]
@@ -84,7 +84,7 @@ class TicTacToe
 
     clear_board
 
-    puts "The winner is: #{game.end_state?}"
+    puts "The winner is: #{game.board.end_state?}"
   end
 
   private
