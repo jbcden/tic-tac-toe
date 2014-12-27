@@ -2,6 +2,11 @@ require 'forwardable'
 
 class Board
   extend Forwardable
+  class InvalidActionError < StandardError
+    def initialize(msg="This space has already been marked")
+      super
+    end
+  end
   class InvalidCoordinateError < StandardError
     def initialize(msg="An invalid coordinate was passed in, please try again")
       super
@@ -32,6 +37,7 @@ class Board
 
   def mark(coordinate, symbol)
     valid_coordinate?(coordinate)
+    raise InvalidActionError if marked?(coordinate)
     set_location_symbol(coordinate.to_sym, symbol)
   end
 

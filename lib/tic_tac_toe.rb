@@ -105,7 +105,7 @@ class TicTacToe
         break
       rescue Board::InvalidCoordinateError => e
         error = e.message
-      rescue Tile::InvalidActionError => e
+      rescue Board::InvalidActionError => e
         error = e.message
       end
     end
