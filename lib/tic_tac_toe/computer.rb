@@ -89,14 +89,4 @@ class Computer
   def opponent
     next_player(symbol)
   end
-
-  def unmarked_tiles(board)
-    unmarked = []
-    board.each do |row|
-      row.each do |tile|
-        unmarked << tile unless tile.marked?
-      end
-    end
-    unmarked
-  end
 end
