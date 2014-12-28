@@ -1,9 +1,6 @@
 require_relative './test_helper'
 require 'computer'
 require 'board'
-require 'board_mapper'
-
-# Mock out dependencies on Board, GameState and BoardMapper et all
 
 class ComputerTest < MiniTest::Test
   def setup
@@ -13,9 +10,11 @@ class ComputerTest < MiniTest::Test
   def test_can_get_list_of_available_moves
     computer = Computer.new("x")
     marked_squares = {
-      :a2 => "x", :b3 => "x", :c2 => "x"
+      :a1 => " ", :a2 => "x", :a3 => " ",
+      :b1 => " ", :b2 => " ", :b3 => "x",
+      :c1 => " ", :c2 => "x", :c3 => " "
     }
-    @board.board.merge!(marked_squares)
+    @board.board = marked_squares
 
     available_moves = computer.available_moves(@board)
 
@@ -33,12 +32,13 @@ class ComputerTest < MiniTest::Test
 
   def test_select_winning_move
     computer = Computer.new("x")
-    updated_board = {
-      :a1 => "o", :c2 => "o", :c3 => "o",
-      :a3 => "x", :b1 => "x", :c1 => "x"
+    marked_squares = {
+      :a1 => "o", :a2 => " ", :a3 => "x",
+      :b1 => "x", :b2 => " ", :b3 => " ",
+      :c1 => "x", :c2 => "o", :c3 => "o",
     }
 
-    @board.merge!(updated_board)
+    @board.board = marked_squares
 
     move = computer.calculate_best_move(@board)
 
@@ -47,12 +47,13 @@ class ComputerTest < MiniTest::Test
 
   def test_select_winning_move_depth
     computer = Computer.new("o")
-    updated_board = {
-      :c1 => "x", :c2 => "x",
-      :a2 => "o", :b3 => "o", :c3 => "o"
+    marked_squares = {
+      :a1 => " ", :a2 => "o", :a3 => " ",
+      :b1 => " ", :b2 => " ", :b3 => "o",
+      :c1 => "x", :c2 => "x", :c3 => "o"
     }
 
-    @board.merge!(updated_board)
+    @board.board = marked_squares
 
     move = computer.calculate_best_move(@board)
 
@@ -61,12 +62,13 @@ class ComputerTest < MiniTest::Test
 
   def test_computer_marks_best_move
     computer = Computer.new("o")
-    updated_board = {
-      :c1 => "x", :c2 => "x",
-      :a2 => "o", :b3 => "o", :c3 => "o"
+    marked_squares = {
+      :a1 => " ", :a2 => "o", :a3 => " ",
+      :b1 => " ", :b2 => " ", :b3 => "o",
+      :c1 => "x", :c2 => "x", :c3 => "o"
     }
 
-    @board.merge!(updated_board)
+    @board.board = marked_squares
 
     move = computer.calculate_best_move(@board)
     computer.make_move(@board, move)
