@@ -1,9 +1,7 @@
 require_relative 'tic_tac_toe/board'
-require_relative 'tic_tac_toe/board_mapper'
 require_relative 'tic_tac_toe/computer'
 require_relative 'tic_tac_toe/display_board'
 require_relative 'tic_tac_toe/player'
-require_relative 'tic_tac_toe/tile'
 
 class TicTacToe
   attr_reader :board, :turn_num, :players, :computer, :player, :game
