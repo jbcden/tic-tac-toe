@@ -101,13 +101,6 @@ class Board
     get_corner_coordinates
   end
 
-  def dup
-    super.tap do
-      temp_board = Marshal.load(Marshal.dump(board))
-      self.board = temp_board
-    end
-  end
-
   def_delegators :@board, :[], :[]=
   private
   def valid_coordinate?(coord)
@@ -271,5 +264,10 @@ class Board
 
   def min_turns
     5
+  end
+
+  def initialize_copy(orig)
+    super
+    @board = @board.dup
   end
 end
