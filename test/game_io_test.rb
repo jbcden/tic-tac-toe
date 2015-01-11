@@ -6,42 +6,19 @@ class GameIOTest < MiniTest::Test
     @test_board = Board.new(3,3)
   end
 
-  #weird character in expected is because of the clear_screen...
-  def test_can_print_a_request_to_choose_character
+  def test_can_print_a_message_with_a_clear_screen_signal
     io = GameIO.new(@input, @output)
-    io.choose_a_character_message
+    io.output("I am a message")
 
-    assert_equal "\ecWhich player would you like to be? (\"x\" or \"o\") ", @output.string
+    assert_equal "\ecI am a message\n", @output.string
   end
 
-  def test_can_announce_the_winner
+  def test_can_print_a_message_without_a_clear_screen_signal
     io = GameIO.new(@input, @output)
-    io.announce_winner("x")
+    io.output("I am a message", false)
 
-    assert_equal "The winner is: x\n", @output.string
+    assert_equal "I am a message\n", @output.string
   end
-
-  def test_turn_message
-    io = GameIO.new(@input, @output)
-    io.prompt_turn
-
-    assert_equal "Please choose a square to mark: ", @output.string
-  end
-
-  # def test_does_not_print_error_if_not_present
-  #   io = GameIO.new(@input, @output)
-  #   io.print_error
-  #
-  #   assert_equal "", @output.string
-  # end
-  #
-  # def test_prints_error_when_present
-  #   io = GameIO.new(@input, @output)
-  #   io.set_error("This is an error")
-  #   io.print_error
-  #
-  #   assert_equal "\nThis is an error: ", @output.string
-  # end
 
   def test_can_accept_input
     input = StringIO.new("x")
