@@ -10,7 +10,6 @@ class Board
     @width = width
     @height = height
     @board = Hash.new
-
     init_board
   end
 
