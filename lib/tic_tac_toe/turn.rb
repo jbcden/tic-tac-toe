@@ -5,16 +5,13 @@ class Turn
   end
 
   def start
-    while !@config.end_state?
+    while !board.end_state?
       @io.print_board(board)
-
       take_turn(@config.current_player)
-
       @config.next_turn
     end
 
     @io.print_board(board)
-
     @io.announce_winner(board.end_state?)
   end
 
@@ -34,7 +31,7 @@ class Turn
 
   def human_move(current_player)
     error = ""
-    while 1
+    while true
       begin
         @io.print_board(board)
         @io.prompt_turn
@@ -43,7 +40,7 @@ class Turn
         current_player.make_move(board, move)
         break
       rescue Board::InvalidCoordinateError => e
-         @io.set_error(e.message)
+        @io.set_error(e.message)
       rescue Board::InvalidActionError => e
         @io.set_error(e.message)
       end

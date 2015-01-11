@@ -1,5 +1,5 @@
 class Configuration
-  attr_reader :board, :turn_num
+  attr_reader :board, :turn_num, :players
   def initialize(board, io)
     @board = board
     @io = io
@@ -26,12 +26,14 @@ class Configuration
     human = @io.input
     opposing_symbol = opposite_of(human)
     begin
-      @players << Player.new(human)
+      player = Player.new(human)
+      @players << player
+      @players << Computer.new(opposing_symbol)
     rescue Player::InvalidCharacterError => e
       @io.set_error(e.message)
       initialize_players
     end
-    @players << Computer.new(opposing_symbol)
+    @players
   end
 
   def opposite_of(human)

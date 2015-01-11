@@ -7,7 +7,6 @@ require_relative 'tic_tac_toe/configuration'
 require_relative 'tic_tac_toe/turn'
 
 class TicTacToe
-  attr_reader :board, :turn_num, :players, :computer, :player, :game
 
   def self.start
     trap('INT') do
