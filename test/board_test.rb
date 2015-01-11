@@ -71,26 +71,32 @@ class BoardTest < MiniTest::Test
 
   def test_cat_is_winner_when_board_is_full
     board = Board.new(3,3)
-    marked_squares = {
-      a1: "o", a2: "o", a3: "x",
-      b1: "x", b2: "x", b3: "o",
-      c1: "o", c2: "x", c3: "o"
-    }
 
-    board.board = marked_squares
+    board.mark("a1", "o")
+    board.mark("a2", "o")
+    board.mark("a3", "x")
+    board.mark("b1", "x")
+    board.mark("b2", "x")
+    board.mark("b3", "o")
+    board.mark("c1", "o")
+    board.mark("c2", "x")
+    board.mark("c3", "o")
 
     assert_equal "cat", board.end_state?
   end
 
   def test_can_list_available_spaces
     board = Board.new(3,3)
-    marked_squares = {
-      :a1 => EMPTY_SPACE, :a2 => "x", :a3 => EMPTY_SPACE,
-      :b1 => EMPTY_SPACE, :b2 => EMPTY_SPACE, :b3 => "x",
-      :c1 => EMPTY_SPACE, :c2 => "x", :c3 => EMPTY_SPACE
-    }
 
-    board.board = marked_squares
+    board.mark("a1", EMPTY_SPACE)
+    board.mark("a2", "x")
+    board.mark("a3", EMPTY_SPACE)
+    board.mark("b1", EMPTY_SPACE)
+    board.mark("b2", EMPTY_SPACE)
+    board.mark("b3", "x")
+    board.mark("c1", EMPTY_SPACE)
+    board.mark("c2", "x")
+    board.mark("c3", EMPTY_SPACE)
 
     available_tiles = board.available_tiles
 
@@ -108,13 +114,17 @@ class BoardTest < MiniTest::Test
 
   def test_can_list_rows_as_2d_array
     board = Board.new(3,3)
-    marked_squares = {
-      a1: "o", a2: "o", a3: "x",
-      b1: "x", b2: "x", b3: "o",
-      c1: "o", c2: "x", c3: "o"
-    }
 
-    board.board = marked_squares
+    board.mark("a1", "o")
+    board.mark("a2", "o")
+    board.mark("a3", "x")
+    board.mark("b1", "x")
+    board.mark("b2", "x")
+    board.mark("b3", "o")
+    board.mark("c1", "o")
+    board.mark("c2", "x")
+    board.mark("c3", "o")
+
     board_array = [["o", "o", "x"],
                    ["x", "x", "o"],
                    ["o", "x", "o"]]
@@ -124,13 +134,17 @@ class BoardTest < MiniTest::Test
 
   def test_can_list_columns_as_2d_array
     board = Board.new(3,3)
-    marked_squares = {
-      a1: "o", a2: "o", a3: "x",
-      b1: "x", b2: "x", b3: "o",
-      c1: "o", c2: "x", c3: "o"
-    }
 
-    board.board = marked_squares
+    board.mark("a1", "o")
+    board.mark("a2", "o")
+    board.mark("a3", "x")
+    board.mark("b1", "x")
+    board.mark("b2", "x")
+    board.mark("b3", "o")
+    board.mark("c1", "o")
+    board.mark("c2", "x")
+    board.mark("c3", "o")
+
     board_array = [["o", "x", "o"],
                    ["o", "x", "x"],
                    ["x", "o", "o"]]
@@ -140,13 +154,17 @@ class BoardTest < MiniTest::Test
 
   def test_can_list_diagonals_from_left
     board = Board.new(3,3)
-    marked_squares = {
-      a1: "o", a2: "o", a3: "x",
-      b1: "x", b2: "x", b3: "o",
-      c1: "o", c2: "x", c3: "o"
-    }
 
-    board.board = marked_squares
+    board.mark("a1", "o")
+    board.mark("a2", "o")
+    board.mark("a3", "x")
+    board.mark("b1", "x")
+    board.mark("b2", "x")
+    board.mark("b3", "o")
+    board.mark("c1", "o")
+    board.mark("c2", "x")
+    board.mark("c3", "o")
+
     board_array = ["x", "x", "o"]
 
     assert_equal(board.get_left_diagonal, board_array)
@@ -154,13 +172,17 @@ class BoardTest < MiniTest::Test
 
   def test_can_list_diagonals_from_right
     board = Board.new(3,3)
-    marked_squares = {
-      a1: "o", a2: "o", a3: "x",
-      b1: "x", b2: "x", b3: "o",
-      c1: "o", c2: "x", c3: "o"
-    }
 
-    board.board = marked_squares
+    board.mark("a1", "o")
+    board.mark("a2", "o")
+    board.mark("a3", "x")
+    board.mark("b1", "x")
+    board.mark("b2", "x")
+    board.mark("b3", "o")
+    board.mark("c1", "o")
+    board.mark("c2", "x")
+    board.mark("c3", "o")
+
     board_array = ["o", "x", "o"]
 
     assert_equal(board.get_right_diagonal, board_array)

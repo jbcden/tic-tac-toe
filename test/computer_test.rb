@@ -7,29 +7,6 @@ class ComputerTest < MiniTest::Test
     @board = Board.new(3,3)
   end
 
-  def test_can_get_list_of_available_moves
-    computer = Computer.new("x")
-    marked_squares = {
-      :a1 => " ", :a2 => "x", :a3 => " ",
-      :b1 => " ", :b2 => " ", :b3 => "x",
-      :c1 => " ", :c2 => "x", :c3 => " "
-    }
-    @board.board = marked_squares
-
-    available_moves = computer.available_moves(@board)
-
-    refute_includes available_moves, "a2"
-    refute_includes available_moves, "b3"
-    refute_includes available_moves, "c2"
-
-    assert_includes available_moves, "a1"
-    assert_includes available_moves, "a3"
-    assert_includes available_moves, "b1"
-    assert_includes available_moves, "b2"
-    assert_includes available_moves, "c1"
-    assert_includes available_moves, "c3"
-  end
-
   def test_select_winning_move
     computer = Computer.new("x")
     marked_squares = {

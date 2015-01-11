@@ -24,7 +24,7 @@ class Computer
     moves = []
     depth += 1
 
-    available_moves(board).each do |coord|
+    board.available_tiles.each do |coord|
       new_board_state = get_new_state(coord, board, current_player)
 
       # I got this idea from the post mentioned in the README
@@ -34,17 +34,13 @@ class Computer
     return choose_move(current_player, scores, moves)
   end
 
-  def available_moves(board)
-    board.available_tiles
-  end
-
   def human?
     false
   end
 
   private
   def new_board?(board)
-    available_moves(board).size == (board.width*board.height)
+    board.available_tiles.size == (board.width*board.height)
   end
 
   def choose_move(current_player, scores, moves)

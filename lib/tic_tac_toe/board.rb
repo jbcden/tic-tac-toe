@@ -199,7 +199,6 @@ class Board
 
   def winner(xcount, ocount, method)
     win_num = self.public_method(method.to_sym).call
-    cat = (width*height)/2 + 1
 
     if xcount == win_num
       "x"
@@ -250,7 +249,6 @@ class Board
     false
   end
 
-  # maybe need to refactor column and row win to be more DRY
   def column_win?
     row_col_win?(get_columns, "height")
   end

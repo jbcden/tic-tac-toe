@@ -3,7 +3,6 @@ class GameIOTest < MiniTest::Test
   def setup
     @input = StringIO.new
     @output = StringIO.new
-    @test_board = Board.new(3,3)
   end
 
   def test_can_print_a_message_with_a_clear_screen_signal
