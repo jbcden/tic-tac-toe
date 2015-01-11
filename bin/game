@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
-require_relative '../lib/tic_tac_toe'
+$:.unshift File.expand_path('../../lib', __FILE__)
+require 'tic_tac_toe'
 
 TicTacToe.start
