@@ -39,9 +39,9 @@ class Turn
         move = @io.input
         current_player.make_move(board, move)
         break
-      rescue Board::InvalidCoordinateError => e
+      rescue GameErrors::InvalidCoordinateError => e
         @io.set_error(e.message)
-      rescue Board::InvalidActionError => e
+      rescue GameErrors::InvalidActionError => e
         @io.set_error(e.message)
       end
     end

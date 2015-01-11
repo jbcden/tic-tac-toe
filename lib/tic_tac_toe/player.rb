@@ -1,15 +1,10 @@
 class Player
-  class InvalidCharacterError < StandardError
-    def initialize(msg='Only "x" and "o" are valid character choices.')
-      super
-    end
-  end
   attr_reader :symbol
   def initialize(symbol)
     if symbol == "x" || symbol == "o"
       @symbol = symbol
     else
-      raise InvalidCharacterError
+      raise GameErrors::InvalidCharacterError
     end
   end
 

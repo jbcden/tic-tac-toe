@@ -29,7 +29,7 @@ class Configuration
       player = Player.new(human)
       @players << player
       @players << Computer.new(opposing_symbol)
-    rescue Player::InvalidCharacterError => e
+    rescue GameErrors::InvalidCharacterError => e
       @io.set_error(e.message)
       initialize_players
     end

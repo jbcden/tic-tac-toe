@@ -6,6 +6,8 @@ require_relative 'tic_tac_toe/game_io'
 require_relative 'tic_tac_toe/configuration'
 require_relative 'tic_tac_toe/turn'
 require_relative 'tic_tac_toe/messages'
+require_relative 'tic_tac_toe/game_errors'
+require_relative 'tic_tac_toe/win_checker'
 
 class TicTacToe
 
