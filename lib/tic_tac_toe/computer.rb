@@ -9,7 +9,6 @@ class Computer
     unless new_board?(board)
       mini_max(board, symbol, 0)
       @move
-      # BoardMapper.map_coordinate(@move.x, @move.y)
     else
       tile = board.corners.sample
     end
