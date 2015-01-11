@@ -34,5 +34,10 @@ For more information please go to https://github.com/jbcden/jbcden_ttt
 - I am also still new to Object-Oriented Design so any feedback on my design would be greatly appreciated!
 
 ## Things I would like to improve:
-- I have not dealt with error handling much in the past and I feel that I am currently handling error cases in a somewhat inelegant way.
-- The design of the tic_tac_toe.rb file also feels clumsy and bloated.
+- I feel that the board
+class may be doing too much. I am struggling to find a satisfying abstraction
+and have decided to not change it for the time being.
+- I also am not sure how to make the tests more flexible when it comes to
+  testing the state of an object. I am not certain whether this means that my
+objects(Computer and Board) are too coupled or if I am still too new at testing
+to see a simple way to make the Computer tests more flexible.

@@ -54,13 +54,97 @@ class Board
     DisplayBoard.call(self)
   end
 
-
   def corners
     get_corner_coordinates
   end
 
   def_delegators :@board, :[], :[]=
   private
+  def valid_coordinate?(coord)
+    col = valid_column_name?(coord)
+    row = valid_row_name?(coord)
+    raise InvalidCoordinateError unless valid_board_coord?(row, col)
+  end
+
+  def valid_board_coord?(row, col)
+    height > BOARD_MAPPINGS.index(row) && width >= col
+  end
+
+  def valid_column_name?(coord)
+    column = coord.scan(/\d+\Z/).first
+    raise InvalidCoordinateError if column.nil?
+    Integer(column)
+  end
+
+  def valid_row_name?(coord)
+    row = coord.scan(/\A[a-z]+/).first
+    raise InvalidCoordinateError if row.nil?
+    raise InvalidCoordinateError unless BOARD_MAPPINGS.include?(row)
+    row
+  end
+
+  def get_corner_coordinates
+    corners = []
+    row_names = get_row_names
+    first_col = 1
+    last_col = width
+    corners << "#{row_names.first}#{first_col}"
+    corners << "#{row_names.first}#{last_col}"
+    corners << "#{row_names.last}#{first_col}"
+    corners << "#{row_names.last}#{last_col}"
+    corners
+  end
+
+  def get_location_name(row_name, col_num)
+    "#{row_name}#{col_num}".to_sym
+  end
+
+  def get_row_names
+    board.keys.map {|c| c[0]}.join.squeeze.chars
+  end
+
+  def set_location_symbol(location, symbol)
+    board[location.to_sym] = symbol
+  end
+
+  def get_location_symbol(location)
+    board.fetch(location.to_sym)
+  end
+
+  def init_board
+    row_index = 0
+    column_index = 1
+    @height.times do
+      @width.times do
+        key = ""
+        key << BOARD_MAPPINGS[row_index] << column_index.to_s
+        @board[key.to_sym] = " "
+        column_index += 1
+      end
+      row_index += 1
+      column_index = 1
+    end
+  end
+
+  def row_iterator(col_num)
+    column = []
+    get_row_names.each do |row|
+      column << get_location_symbol(get_location_name(row, col_num))
+    end
+    column
+  end
+
+  # iterates over current rows columns and returns the values
+  def column_iterator(row_name)
+    col_count = 1
+    row = []
+    width.times do
+      row << get_location_symbol(get_location_name(row_name, col_count))
+      col_count += 1
+    end
+    row
+  end
+
   """
   This method will return an array of the values for
   each column in each row.
@@ -102,91 +186,6 @@ class Board
       start += 1
     end
     diagonal
-  end
-  def valid_coordinate?(coord)
-    col = valid_column_name?(coord)
-    row = valid_row_name?(coord)
-    raise InvalidCoordinateError unless valid_board_coord?(row, col)
-  end
-
-  def valid_board_coord?(row, col)
-    height > BOARD_MAPPINGS.index(row) && width >= col
-  end
-
-  def valid_column_name?(coord)
-    column = coord.scan(/\d+\Z/).first
-    raise InvalidCoordinateError if column.nil?
-    Integer(column)
-  end
-
-  def valid_row_name?(coord)
-    row = coord.scan(/\A[a-z]+/).first
-    raise InvalidCoordinateError if row.nil?
-    raise InvalidCoordinateError unless BOARD_MAPPINGS.include?(row)
-    row
-  end
-
-  def get_corner_coordinates
-    corners = []
-    row_names = get_row_names
-    first_col = 1
-    last_col = width
-    corners << "#{row_names.first}#{first_col}"
-    corners << "#{row_names.first}#{last_col}"
-    corners << "#{row_names.last}#{first_col}"
-    corners << "#{row_names.last}#{last_col}"
-    corners
-  end
-
-  def row_iterator(col_num)
-    column = []
-    get_row_names.each do |row|
-      column << get_location_symbol(get_location_name(row, col_num))
-    end
-    column
-  end
-
-  # iterates over current rows columns and returns the values
-  def column_iterator(row_name)
-    col_count = 1
-    row = []
-    width.times do
-      row << get_location_symbol(get_location_name(row_name, col_count))
-      col_count += 1
-    end
-    row
-  end
-
-  def get_location_name(row_name, col_num)
-    "#{row_name}#{col_num}".to_sym
-  end
-
-  def get_row_names
-    board.keys.map {|c| c[0]}.join.squeeze.chars
-  end
-
-  def set_location_symbol(location, symbol)
-    board[location.to_sym] = symbol
-  end
-
-  def get_location_symbol(location)
-    board.fetch(location.to_sym)
-  end
-
-  def init_board
-    row_index = 0
-    column_index = 1
-    @height.times do
-      @width.times do
-        key = ""
-        key << BOARD_MAPPINGS[row_index] << column_index.to_s
-        @board[key.to_sym] = " "
-        column_index += 1
-      end
-      row_index += 1
-      column_index = 1
-    end
-
   end
 
   def full_board?
