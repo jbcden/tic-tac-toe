@@ -25,7 +25,7 @@ class Board
   end
 
   def end_state?
-    row_win || column_win || diagonal_win || full_board
+    row_win? || column_win? || diagonal_win? || full_board?
   end
 
   def available_tiles
@@ -189,7 +189,7 @@ class Board
 
   end
 
-  def full_board
+  def full_board?
     if available_tiles.empty?
       "cat"
     else
@@ -229,12 +229,11 @@ class Board
     win?(xcount, ocount, "height")
   end
 
-  def diagonal_win
+  def diagonal_win?
     left_diagonal ||
         right_diagonal
   end
 
-  # want to rename chunk to be something more descriptive...
   def sum(chunk, symbol)
     chunk.select { |location|
       location == symbol
@@ -242,7 +241,7 @@ class Board
   end
 
   # maybe need to refactor column and row win to be more DRY
-  def column_win
+  def column_win?
     get_columns.each do |col|
       xcount = sum(col, "x")
       ocount = sum(col, "o")
@@ -252,7 +251,7 @@ class Board
     false
   end
 
-  def row_win
+  def row_win?
     get_rows.each do |row|
       xcount = sum(row, "x")
       ocount = sum(row, "o")
@@ -260,10 +259,6 @@ class Board
       return victor if victor
     end
     false
-  end
-
-  def min_turns
-    5
   end
 
   def initialize_copy(orig)
