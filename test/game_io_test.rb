@@ -1,3 +1,4 @@
+require_relative './test_helper'
 require 'game_io'
 class GameIOTest < MiniTest::Test
   def setup

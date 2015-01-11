@@ -113,6 +113,7 @@ class BoardTest < MiniTest::Test
   end
 
   def test_can_list_rows_as_2d_array
+    skip
     board = Board.new(3,3)
 
     board.mark("a1", "o")
@@ -133,6 +134,7 @@ class BoardTest < MiniTest::Test
   end
 
   def test_can_list_columns_as_2d_array
+    skip
     board = Board.new(3,3)
 
     board.mark("a1", "o")
@@ -153,6 +155,7 @@ class BoardTest < MiniTest::Test
   end
 
   def test_can_list_diagonals_from_left
+    skip
     board = Board.new(3,3)
 
     board.mark("a1", "o")
@@ -171,6 +174,7 @@ class BoardTest < MiniTest::Test
   end
 
   def test_can_list_diagonals_from_right
+    skip
     board = Board.new(3,3)
 
     board.mark("a1", "o")

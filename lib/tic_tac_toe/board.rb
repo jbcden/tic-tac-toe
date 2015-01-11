@@ -54,6 +54,13 @@ class Board
     DisplayBoard.call(self)
   end
 
+
+  def corners
+    get_corner_coordinates
+  end
+
+  def_delegators :@board, :[], :[]=
+  private
   """
   This method will return an array of the values for
   each column in each row.
@@ -96,13 +103,6 @@ class Board
     end
     diagonal
   end
-
-  def corners
-    get_corner_coordinates
-  end
-
-  def_delegators :@board, :[], :[]=
-  private
   def valid_coordinate?(coord)
     col = valid_column_name?(coord)
     row = valid_row_name?(coord)
