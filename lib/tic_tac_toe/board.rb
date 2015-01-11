@@ -240,25 +240,23 @@ class Board
     }.size
   end
 
-  # maybe need to refactor column and row win to be more DRY
-  def column_win?
-    get_columns.each do |col|
-      xcount = sum(col, "x")
-      ocount = sum(col, "o")
-      victor = win?(xcount, ocount, "height")
+  def row_col_win?(row_or_column, predicate)
+    row_or_column.each do |chunk|
+      xcount = sum(chunk, "x")
+      ocount = sum(chunk, "o")
+      victor = win?(xcount, ocount, predicate)
       return victor if victor
     end
     false
   end
 
+  # maybe need to refactor column and row win to be more DRY
+  def column_win?
+    row_col_win?(get_columns, "height")
+  end
+
   def row_win?
-    get_rows.each do |row|
-      xcount = sum(row, "x")
-      ocount = sum(row, "o")
-      victor = win?(xcount, ocount, "width")
-      return victor if victor
-    end
-    false
+    row_col_win?(get_rows, "width")
   end
 
   def initialize_copy(orig)
