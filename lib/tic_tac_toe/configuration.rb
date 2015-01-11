@@ -22,7 +22,7 @@ class Configuration
 
   private
   def initialize_players
-    @io.choose_a_character_message
+    @io.output(Messages.choose_a_character)
     human = @io.input
     opposing_symbol = opposite_of(human)
     begin

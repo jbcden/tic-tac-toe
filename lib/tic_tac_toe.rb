@@ -5,6 +5,7 @@ require_relative 'tic_tac_toe/player'
 require_relative 'tic_tac_toe/game_io'
 require_relative 'tic_tac_toe/configuration'
 require_relative 'tic_tac_toe/turn'
+require_relative 'tic_tac_toe/messages'
 
 class TicTacToe
 

@@ -6,13 +6,13 @@ class Turn
 
   def start
     while !board.end_state?
-      @io.print_board(board)
+      @io.output(Messages.print_board(board))
       take_turn(@config.current_player)
       @config.next_turn
     end
 
-    @io.print_board(board)
-    @io.announce_winner(board.end_state?)
+    @io.output(Messages.print_board(board))
+    @io.output(Messages.announce_winner(board.end_state?), false)
   end
 
   private
@@ -33,8 +33,8 @@ class Turn
     error = ""
     while true
       begin
-        @io.print_board(board)
-        @io.prompt_turn
+        @io.output(Messages.print_board(board))
+        @io.output(Messages.prompt_turn, false)
 
         move = @io.input
         current_player.make_move(board, move)
